@@ -11,15 +11,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-    fun provideRetrofitService() : Retrofit {
-
-        return Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2/")
-            .build()
-    }
-
-    fun getApiService() {
-       val newsService: NewsApiService = provideRetrofitService().create(NewsApiService::class.java)
-    }
 }

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface NewsApiService {
 
-    @GET("All sources")
+//    @GET("All sources")
 //    fun getAllSources(): Call<Sources>
 }
