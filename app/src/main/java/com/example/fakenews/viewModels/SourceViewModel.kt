@@ -1,8 +1,16 @@
 package com.example.fakenews.viewModels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import com.example.fakenews.Data.dataRepository.SourceRepository
+import com.example.fakenews.Data.models.SourceX
 
-//TODO use a hashmap function for the images to create a better card view
+class SourceViewModel(application: Application): AndroidViewModel(application) {
 
-class SourceViewModel {}
+    val sourceRepository= SourceRepository()
+    val allSources: LiveData<List<SourceX>> get() = sourceRepository.getMutableLiveData()
+
+}
 
 

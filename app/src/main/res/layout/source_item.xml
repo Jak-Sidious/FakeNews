@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       xmlns:tools="http://schemas.android.com/tools"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="8dp"
+       card_view:cardCornerRadius="4dp">
+
+    <TextView
+        android:id="@+id/source_name"
+        android:text="Source name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/source_description"/>
+
+    <TextView
+        android:id="@+id/source_description"
+        android:text="Source Description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source_name"/>
+
+    <TextView
+        android:id="@+id/source_category"
+        android:text="Source Category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/source_description"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/source_category">
+
+            <TextView
+                android:id="@+id/source_language"
+                android:text="Source Language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/source_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Source Country"
+                android:layout_toRightOf="@id/source_language"/>
+
+        </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
