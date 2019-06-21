@@ -1,9 +1,9 @@
-package com.example.fakenews.Data.dataRepository
+package com.example.fakenews.data.dataRepository
 
 import androidx.lifecycle.MutableLiveData
 import com.example.fakenews.BuildConfig
-import com.example.fakenews.Data.api.ApiClient
-import com.example.fakenews.Data.models.SourceX
+import com.example.fakenews.data.api.ApiClient
+import com.example.fakenews.data.models.SourceX
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.await
 
-
+@Suppress("EmptyDefaultConstructor", "TooGenericExceptionCaught")
 class SourceRepository()  {
     private var sourced = mutableListOf<SourceX>()
     private var mutableLiveData = MutableLiveData<List<SourceX>>()

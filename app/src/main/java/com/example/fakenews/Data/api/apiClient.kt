@@ -1,7 +1,6 @@
-package com.example.fakenews.Data.api
+package com.example.fakenews.data.api
 
 
-import android.app.Service
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,12 +18,12 @@ object ApiClient {
 
     val BASE_URL = "https://newsapi.org/v2/"
 
-    fun getService(): apiInterface {
+    fun getService(): ApiInterface {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-            .create(apiInterface::class.java)
+            .create(ApiInterface::class.java)
     }
 }

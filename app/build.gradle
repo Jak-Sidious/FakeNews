@@ -5,6 +5,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply from: '../app/code_quality_tools/quality.gradle'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -67,3 +69,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 }
+
+apply from: '../gradle/git-hooks.gradle'
