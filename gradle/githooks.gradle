@@ -1,5 +1,5 @@
 task setupGitHooks(type: Copy) {
-    "cp ../../pre-commit.sh .git/hooks/pre-commit".execute()
+    "cp pre-commit.sh .git/hooks/pre-commit".execute()
 }
 
 // grant 'hooks' folder and all its contents, in .git directory, system(file) executable permission
