@@ -1,12 +1,26 @@
-task setupGitHooks(type: Copy) {
-    "cp pre-commit.sh .git/hooks/pre-commit".execute()
+task copyGitHooks(type: Copy) {
+    description "Copies the git hooks from pre-commit.sh"
+    from("") {
+        include '**/*.sh'
+        rename '(.*).sh', '$1'
+    }
+    into "/gradle"
 }
 
-// grant 'hooks' folder and all its contents, in .git directory, system(file) executable permission
-task makeHookExecutable() {
-    Runtime.getRuntime().exec("chmod -R +x .git/hooks/")
+task installGitHooks(type: Exec) {
+    description "Installs the pre-commit git hooks from pre-commit.sh"
+    group 'git hooks'
+    workingDir rootDir
+    commandLine 'chmod'
+    args '-R', '+x', '.git/hooks/'
+    dependsOn copyGitHooks
+    doLast {
+        println('Git hook installed successfully.')
+    }
 }
 
-// add new tasks as dependencies for inbuilt 'build' task
-makeHookExecutable.dependsOn setupGitHooks
-build.dependsOn makeHookExecutable
+afterEvaluate {
+    // We install the hook at the first occasion
+    tasks['clean'].dependsOn installGitHooks
+    tasks['assemble'].dependsOn installGitHooks
+}
