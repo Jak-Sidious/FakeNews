@@ -5,6 +5,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply from: '../app/code_quality_tools/quality.gradle'
+
 android {
     compileSdkVersion 28
     defaultConfig {

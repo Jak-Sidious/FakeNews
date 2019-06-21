@@ -1,13 +1,13 @@
-package com.example.fakenews.Data.api
+package com.example.fakenews.data.api
 
 
-import com.example.fakenews.Data.models.Source
+import com.example.fakenews.data.models.Source
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface apiInterface {
+interface ApiInterface {
 
     @GET("sources")
     fun getAllSources(@Query("apiKey")apiKey: String): Call<Source>

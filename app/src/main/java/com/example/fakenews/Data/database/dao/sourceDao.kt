@@ -1,9 +1,8 @@
-package com.example.fakenews.Data.database.DAO
+package com.example.fakenews.data.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Query
 
+@Suppress("EmptyClassBlock")
 @Dao
 interface SourceDao {
 
