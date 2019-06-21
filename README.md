@@ -10,6 +10,11 @@ Clone this repository and import into **Android Studio**
 git clone https://github.com/Jak-Sidious/FakeNews.git
 ```
 
+## Install Pre-commit Hook
+There are two ways to do this the first being accessing the `Gradle` menu on the right hand side of the IDE and then clicking on the `git hooks` section, followed by clicking the function `installGitHookls`
+
+Additionally, the command ```./gradlew installGitHooks``` can be run from inside the terminal top ensure that the pre-commit hook is successfully installed.
+
 ## Build variants
 Use the Android Studio *Build Variants* button to choose between **debug** and **release** flavors combined with debug and release build types
 
