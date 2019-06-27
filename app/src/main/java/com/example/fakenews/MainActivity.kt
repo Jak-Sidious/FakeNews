@@ -1,6 +1,7 @@
 package com.example.fakenews
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,14 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fakenews.data.models.SourceX
 import com.example.fakenews.adapters.SourceAdapter
 import com.example.fakenews.viewModels.SourceViewModel
+import com.example.fakenews.views.ArticleActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.FieldPosition
 
 
 class MainActivity : AppCompatActivity() {
@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onClick(view: View, position: Int){
                 Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
+                val i = Intent(this@MainActivity, ArticleActivity::class.java)
+                startActivity(i)
             }
         }))
     }
