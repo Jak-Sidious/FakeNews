@@ -27,8 +27,7 @@ class SourceRepository()  {
                 try {
 
                     val response = request.await()
-                    val mSource = response
-                    sourced = mSource.sources
+                    sourced = response.sources
                     mutableLiveData.value = sourced
                 } catch (e: HttpException) {
                     TODO()//log exception
