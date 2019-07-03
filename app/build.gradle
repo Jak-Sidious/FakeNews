@@ -5,7 +5,20 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'jacoco'
+
 apply from: '../app/code_quality_tools/quality.gradle'
+
+apply from: '../coverage.gradle'
+
+jacoco {
+    toolVersion = "${rootProject.jacocoVersion}"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
 
 android {
     compileSdkVersion 28
@@ -19,8 +32,13 @@ android {
         buildConfigField("String", "apiKey", apiKey)
     }
     buildTypes {
+
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
+            testCoverageEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -64,7 +82,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
 
-    // GLide
+    // Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
