@@ -11,9 +11,6 @@ apply from: '../app/code_quality_tools/quality.gradle'
 
 apply from: '../coverage.gradle'
 
-jacoco {
-    toolVersion = "${rootProject.jacocoVersion}"
-}
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
@@ -26,6 +23,7 @@ android {
         applicationId "com.example.fakenews"
         minSdkVersion 17
         targetSdkVersion 28
+//        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -34,8 +32,10 @@ android {
     buildTypes {
 
         debug {
+            debuggable true
             testCoverageEnabled = true
         }
+
         release {
             minifyEnabled false
             testCoverageEnabled = true
@@ -62,11 +62,12 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.room:room-runtime:2.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
     implementation  'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
-    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0-alpha01'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0-alpha02'
 
 
     //retrofit
