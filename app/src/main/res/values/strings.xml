@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Fake News</string>
+    <string name="the_image">The Image</string>
+    <string name="the_title">The title</string>
+    <string name="the_author">The Author</string>
+    <string name="timestamp">TimeStamp</string>
+    <string name="the_description">The description</string>
+    <string name="article_source">Article Source</string>
+    <string name="source_country">Source Country</string>
+    <string name="source_language">Source Language</string>
+    <string name="source_category">Source Category</string>
+    <string name="source_description">Source Description</string>
+    <string name="source_name">Source name</string>
 </resources>

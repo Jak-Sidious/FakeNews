@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    //TODO() Setup Backup options & Firebase Indexing
     var mRecyclerView: RecyclerView? = null
     var swipeRefresh: SwipeRefreshLayout? = null
     var sourceViewModel: SourceViewModel? = null
