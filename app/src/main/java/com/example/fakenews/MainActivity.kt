@@ -22,9 +22,11 @@ import com.example.fakenews.views.ArticleActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+@Suppress("DEPRECATION", "UNUSED_PARAMETER")
 class MainActivity : AppCompatActivity() {
 
     //TODO() Setup Backup options & Firebase Indexing
+    //TODO() Remove suppression warnings and fix them accordingly
     var mRecyclerView: RecyclerView? = null
     var swipeRefresh: SwipeRefreshLayout? = null
     var sourceViewModel: SourceViewModel? = null

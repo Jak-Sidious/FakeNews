@@ -104,7 +104,8 @@ dependencies {
     testImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
     testImplementation 'androidx.test.espresso:espresso-contrib:3.3.0-alpha01'
     testImplementation 'androidx.test.espresso:espresso-intents:3.3.0-alpha01'
-    debugImplementation "com.google.truth:truth:0.44"
+    testImplementation 'com.google.truth:truth:0.44'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
 
     //Android Unit tests
     androidTestImplementation 'junit:junit:4.12'
