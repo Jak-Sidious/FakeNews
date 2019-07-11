@@ -24,8 +24,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             '**/Manifest*.*',
             '**/*Test*.*',
             'android/**/*.*',
-            '**/*Fragment.*',
-            '**/*Activity.*'
+            '**/*Fragment.*'
     ]
     // generated classes
     classDirectories = fileTree(
