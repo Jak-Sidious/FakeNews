@@ -14,6 +14,7 @@
 
         <ImageView
                 android:id="@+id/article_image"
+                android:contentDescription="@string/the_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#000"
@@ -26,14 +27,14 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The title"
+            android:text="@string/the_title"
             card_view:layout_constraintTop_toBottomOf="@id/article_image"/>
 
         <TextView
             android:id="@+id/article_author"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="The Author"
+            android:text="@string/the_author"
             card_view:layout_constraintTop_toBottomOf="@id/article_title"
             card_view:layout_constraintStart_toStartOf="parent"/>
 
@@ -41,7 +42,7 @@
             android:id="@+id/article_timestamp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TimeStamp"
+            android:text="@string/timestamp"
             android:gravity="end"
             card_view:layout_constraintTop_toBottomOf="@id/article_title"/>
 
@@ -49,14 +50,14 @@
             android:id="@+id/article_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The description"
+            android:text="@string/the_description"
             card_view:layout_constraintTop_toBottomOf="@id/article_author"/>
 
         <TextView
             android:id="@+id/article_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Article Source"
+            android:text="@string/article_source"
             card_view:layout_constraintTop_toBottomOf="@id/article_description"/>
 
 

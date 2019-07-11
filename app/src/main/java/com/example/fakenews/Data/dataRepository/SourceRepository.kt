@@ -1,5 +1,6 @@
 package com.example.fakenews.data.dataRepository
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import com.example.fakenews.BuildConfig
 import com.example.fakenews.data.api.ApiClient
@@ -16,9 +17,13 @@ class SourceRepository()  {
     private var sourced = mutableListOf<SourceX>()
     private var mutableLiveData = MutableLiveData<List<SourceX>>()
 
+    //hashmap for testing
+    var sourceData: LinkedHashMap<String, SourceX> = LinkedHashMap()
+
     private val getSources by lazy {
         ApiClient.getService()
     }
+
 
     fun getMutableLiveData(): MutableLiveData<List<SourceX>> {
         CoroutineScope(Dispatchers.IO).launch {
@@ -39,4 +44,31 @@ class SourceRepository()  {
         }
         return mutableLiveData
     }
+
+    @VisibleForTesting
+    fun addSource(vararg sources: SourceX){
+        for (source in sources){
+            sourceData[source.name] = source
+        }
+    }
 }
+
+//Original
+//fun refreshTitle(onStateChanged: TitleStateListener) {
+//    onStateChanged(Loading)
+//    val call = network.fetchNewWelcome()
+//    call.addOnResultListener { result ->
+//        when (result) {
+//            is FakeNetworkSuccess<String> -> {
+//                BACKGROUND.submit {
+//                    // run insertTitle on a background thread
+//                    titleDao.insertTitle(Title(result.data))
+//                }
+//                onStateChanged(Success)
+//            }
+//            is FakeNetworkError -> {
+//                onStateChanged(Error(TitleRefreshError(result.error)))
+//            }
+//        }
+//    }
+//}
