@@ -1,12 +1,11 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/code
+    environment:
+      CC_TEST_REPORTER_ID: cf11e0abade8c93479eca8128150d279d763f54c41db45b9ba2a28fda1b1117b
     docker:
       - image: circleci/android:api-28-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
-      CC_TEST_REPORTER_ID: cf11e0abade8c93479eca8128150d279d763f54c41db45b9ba2a28fda1b1117b
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -24,6 +23,9 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradlew lint test
+      - run: # To get the test coverage
+          name: Get coverage
+          command: ./gradlew jacocoTestReport
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/reports
           destination: reports
