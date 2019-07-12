@@ -11,4 +11,5 @@
     <string name="source_category">Source Category</string>
     <string name="source_description">Source Description</string>
     <string name="source_name">Source name</string>
+    <string name="news_sources">News Sources</string>
 </resources>
