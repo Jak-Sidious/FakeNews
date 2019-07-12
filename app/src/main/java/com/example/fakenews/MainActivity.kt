@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        swipeRefresh = swipeRefresh
+//        swipeRefresh = swipeRefresh
         mRecyclerView = sourceRecyclerView
         sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel::class.java)
         getAllSources()
@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
                 val i = Intent(this@MainActivity, ArticleActivity::class.java)
                 startActivity(i)
+                mSourceAdapter!!.notifyDataSetChanged()
             }
         }))
     }

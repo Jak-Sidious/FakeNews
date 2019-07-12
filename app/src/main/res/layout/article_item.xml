@@ -13,13 +13,13 @@
         android:layout_height="wrap_content">
 
         <ImageView
-                android:id="@+id/article_image"
-                android:contentDescription="@string/the_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#000"
-                android:padding="30dp"
-                card_view:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/article_image"
+            android:contentDescription="@string/the_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000"
+            android:padding="30dp"
+            card_view:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/article_title"

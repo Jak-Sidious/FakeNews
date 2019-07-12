@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fakenews.R
 import com.example.fakenews.data.models.Article
-import com.example.fakenews.data.models.SourceXX
 
 class ArticleAdapter(val articleList: List<Article>?) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 

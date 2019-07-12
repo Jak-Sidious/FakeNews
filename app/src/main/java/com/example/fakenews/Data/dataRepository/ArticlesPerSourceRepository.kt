@@ -40,8 +40,9 @@ class ArticlesPerSourceRepository() {
 //                    TODO() throwable error
                     }
                 }
-            }
-        Timber.d("This is it too $mutableArticleData")
+            Timber.d("This is it too $mutableArticleData")
+
+        }
         return mutableArticleData
     }
 }
