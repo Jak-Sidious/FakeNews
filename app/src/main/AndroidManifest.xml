@@ -26,6 +26,10 @@
                   android:parentActivityName=".MainActivity">
 
         </activity>
+        <activity android:name=".views.ArticleDisplayActivity"
+                  android:parentActivityName=".views.ArticleActivity">
+
+        </activity>
     </application>
 
 </manifest>

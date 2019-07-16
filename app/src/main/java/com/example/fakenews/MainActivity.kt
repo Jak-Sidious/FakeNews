@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     //TODO() Setup Backup options & Firebase Indexing
     //TODO() Remove suppression warnings and fix them accordingly
+    //TODO() Fix swipe refresh tools and create a base adapater class
     var mRecyclerView: RecyclerView? = null
     var swipeRefresh: SwipeRefreshLayout? = null
     var sourceViewModel: SourceViewModel? = null
