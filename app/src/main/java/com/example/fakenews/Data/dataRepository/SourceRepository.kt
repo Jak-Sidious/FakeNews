@@ -1,6 +1,5 @@
 package com.example.fakenews.data.dataRepository
 
-import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import com.example.fakenews.BuildConfig
@@ -56,23 +55,3 @@ class SourceRepository()  {
         }
     }
 }
-
-//Original
-//fun refreshTitle(onStateChanged: TitleStateListener) {
-//    onStateChanged(Loading)
-//    val call = network.fetchNewWelcome()
-//    call.addOnResultListener { result ->
-//        when (result) {
-//            is FakeNetworkSuccess<String> -> {
-//                BACKGROUND.submit {
-//                    // run insertTitle on a background thread
-//                    titleDao.insertTitle(Title(result.data))
-//                }
-//                onStateChanged(Success)
-//            }
-//            is FakeNetworkError -> {
-//                onStateChanged(Error(TitleRefreshError(result.error)))
-//            }
-//        }
-//    }
-//}
