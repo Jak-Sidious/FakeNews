@@ -25,23 +25,22 @@ class ArticlesPerSourceRepository() {
     }
 
     fun getMutableArticleData(): MutableLiveData<List<Article>> {
-            CoroutineScope(Dispatchers.IO).launch {
-                val request = getArticles.getArticlesPerSource(source, BuildConfig.apiKey)
-                withContext(Dispatchers.Default) {
-                    try {
-                        val response = request.await()
-                        collected = response.articles
-                        mutableArticleData.value = collected
-                        Timber.d("This is it $mutableArticleData")
-                    } catch (e: HttpException) {
-                        Timber.e("Le Articles HttpException $e")
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = getArticles.getArticlesPerSource(source, BuildConfig.apiKey)
+            withContext(Dispatchers.Default) {
+                try {
+                    val response = request.await()
+                    collected = response.articles
+                    mutableArticleData.postValue(collected)
+                    Timber.d("This is it $mutableArticleData")
+                } catch (e: HttpException) {
+                    Timber.e("Le Articles HttpException $e")
 
-                    } catch (e: Throwable) {
-                        Timber.e("Le Articles Throwable $e")
-                    }
+                } catch (e: Throwable) {
+                    Timber.e("Le Articles Throwable $e")
                 }
+            }
             Timber.d("This is it too $mutableArticleData")
-
         }
         return mutableArticleData
     }
