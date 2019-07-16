@@ -34,10 +34,10 @@ class ArticlesPerSourceRepository() {
                         mutableArticleData.value = collected
                         Timber.d("This is it $mutableArticleData")
                     } catch (e: HttpException) {
-//                    TODO()log exception
+                        Timber.e("Le Articles HttpException $e")
 
                     } catch (e: Throwable) {
-//                    TODO() throwable error
+                        Timber.e("Le Articles Throwable $e")
                     }
                 }
             Timber.d("This is it too $mutableArticleData")

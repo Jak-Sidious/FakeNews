@@ -1,5 +1,6 @@
 package com.example.fakenews.data.dataRepository
 
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import com.example.fakenews.BuildConfig
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.await
+import timber.log.Timber
 
 @Suppress("EmptyDefaultConstructor", "TooGenericExceptionCaught")
 class SourceRepository()  {
@@ -26,19 +28,21 @@ class SourceRepository()  {
 
 
     fun getMutableLiveData(): MutableLiveData<List<SourceX>> {
+
         CoroutineScope(Dispatchers.IO).launch {
+//            Timber.d("I was called")
             val request = getSources.getAllSources(BuildConfig.apiKey)
+            Timber.d("I was called on request $request")
             withContext(Dispatchers.Main){
                 try {
-
                     val response = request.await()
                     sourced = response.sources
                     mutableLiveData.value = sourced
                 } catch (e: HttpException) {
-                    TODO()//log exception
+                    Timber.d("Sources HttpException $e")
 
                 } catch (e: Throwable) {
-                    TODO() // Log Error
+                    Timber.d("From sources throwable $e")
                 }
             }
         }

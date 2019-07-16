@@ -42,7 +42,7 @@ class ArticleAdapter(val articleList: List<Article>?) : RecyclerView.Adapter<Art
         holder.mArticleAuthor.text = mArticle.author
         holder.mArticleTimestamp.text = mArticle.publishedAt
         holder.mArticleDescription.text = mArticle.description
-        holder.mArticleSource.text = mArticle.source[0].name
+        holder.mArticleSource.text = mArticle.source.name
 
 
     }

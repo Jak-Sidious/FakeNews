@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +21,7 @@ import com.example.fakenews.adapters.SourceAdapter
 import com.example.fakenews.viewModels.SourceViewModel
 import com.example.fakenews.views.ArticleActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 
 @Suppress("DEPRECATION", "UNUSED_PARAMETER")
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
     var mSourceAdapter: SourceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.plant(Timber.DebugTree())
+        Timber.d("Hello from Main Activity")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getAllSources(){
 //        swipeRefresh!!.isRefreshing = false
+
         sourceViewModel!!.allSources.observe(this, Observer { sourceList ->
             prepareRecyclerView(sourceList)
         })
@@ -65,8 +70,9 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int){
                 Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
                 val i = Intent(this@MainActivity, ArticleActivity::class.java)
-                startActivity(i)
                 mSourceAdapter!!.notifyDataSetChanged()
+                startActivity(i)
+
             }
         }))
     }
