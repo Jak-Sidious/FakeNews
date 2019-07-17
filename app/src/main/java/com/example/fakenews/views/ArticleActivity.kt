@@ -14,13 +14,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fakenews.MainActivity
 import com.example.fakenews.R
 import com.example.fakenews.adapters.ArticleAdapter
 import com.example.fakenews.data.models.Article
 import com.example.fakenews.viewModels.ArticleViewModel
 import kotlinx.android.synthetic.main.article_activity.*
-import timber.log.Timber
 
 class ArticleActivity : AppCompatActivity() {
 
@@ -28,17 +26,26 @@ class ArticleActivity : AppCompatActivity() {
     var articleViewModel: ArticleViewModel? = null
     var aArticleAdapter: ArticleAdapter? = null
     var viewHeader: String? = null
+    var queryString: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.article_activity)
         var sent: Bundle = intent.extras
         viewHeader = sent.getString("SourceName")
-        Timber.d("Passed data $viewHeader")
-        Article_header.text = viewHeader
+        queryString = sent.getString("SearchQuery")
         aRecyclerView = articleRecyclerView
         articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
         getAllArticles()
+        setHeaderText()
+    }
+
+    fun setHeaderText(){
+        if ( viewHeader == null) {
+            Article_header.text = queryString
+        } else {
+            Article_header.text = viewHeader
+        }
     }
 
     fun getAllArticles() {
@@ -58,15 +65,20 @@ class ArticleActivity : AppCompatActivity() {
         }
         aRecyclerView!!.itemAnimator = DefaultItemAnimator()
         aRecyclerView!!.adapter = aArticleAdapter
-        aRecyclerView!!.addOnItemTouchListener(RecyclerTouchListener(this, aRecyclerView!!, object: ClickListener{
+        aRecyclerView!!.addOnItemTouchListener(
+            RecyclerTouchListener(
+                this,
+                aRecyclerView!!,
+                object : ClickListener {
 
-            override fun onClick(view: View, position: Int) {
-                Toast.makeText(this@ArticleActivity, articleList!![position].url, Toast.LENGTH_SHORT).show()
-                val webs = Intent(this@ArticleActivity, ArticleDisplayActivity::class.java)
-                webs.putExtra("ArticleUrl", articleList!![position].url)
-                startActivity(webs)
-            }
-        }))
+                    override fun onClick(view: View, position: Int) {
+                        Toast.makeText(this@ArticleActivity, articleList!![position].url, Toast.LENGTH_SHORT).show()
+                        val webs = Intent(this@ArticleActivity, ArticleDisplayActivity::class.java)
+                        webs.putExtra("ArticleUrl", articleList!![position].url)
+                        startActivity(webs)
+                    }
+                })
+        )
     }
 
     interface ClickListener {

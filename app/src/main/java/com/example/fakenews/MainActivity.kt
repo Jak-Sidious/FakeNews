@@ -1,14 +1,16 @@
 package com.example.fakenews
 
+import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.GestureDetector
+import android.view.Menu
 import android.view.MotionEvent
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -38,7 +40,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.plant(Timber.DebugTree())
-        Timber.d("Hello from Main Activity")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -117,9 +118,32 @@ class MainActivity : AppCompatActivity() {
         private const val LANDSCAPE_COUNT = 4
         private const val PORTRAIT_COUNT = 2
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu?.findItem(R.id.search)?.actionView as SearchView).apply{
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            queryHint = "Search Latest News...."
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    if (query.length > 2) {
+                        Toast.makeText(this@MainActivity, "Searching for $query", Toast.LENGTH_SHORT).show()
+                        val searchIntent = Intent(this@MainActivity, ArticleActivity::class.java)
+                        searchIntent.putExtra("SearchQuery", query)
+                        startActivity(searchIntent)
+                    }
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    return false
+                }
+            })
+        }
+        return true
+    }
+
 }
-
-
-
-
 

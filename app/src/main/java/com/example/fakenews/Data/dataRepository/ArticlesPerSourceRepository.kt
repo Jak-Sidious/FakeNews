@@ -18,13 +18,13 @@ class ArticlesPerSourceRepository() {
 
     private var collected = mutableListOf<Article>()
     private var mutableArticleData = MutableLiveData<List<Article>>()
-    private var source: String = "abc-news"
 
     private val getArticles by lazy {
         ApiClient.getService()
     }
 
-    fun getMutableArticleData(): MutableLiveData<List<Article>> {
+    //TODO() Modify this function to cater to the choice clicked and not the hardcoded string
+    fun getMutableArticleData(source: String): MutableLiveData<List<Article>> {
         CoroutineScope(Dispatchers.IO).launch {
             val request = getArticles.getArticlesPerSource(source, BuildConfig.apiKey)
             withContext(Dispatchers.Default) {
