@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +21,7 @@ import com.example.fakenews.adapters.SourceAdapter
 import com.example.fakenews.viewModels.SourceViewModel
 import com.example.fakenews.views.ArticleActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 
 @Suppress("DEPRECATION", "UNUSED_PARAMETER")
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     //TODO() Setup Backup options & Firebase Indexing
     //TODO() Remove suppression warnings and fix them accordingly
+    //TODO() Fix swipe refresh tools and create a base adapater class
     var mRecyclerView: RecyclerView? = null
     var swipeRefresh: SwipeRefreshLayout? = null
     var sourceViewModel: SourceViewModel? = null
@@ -34,10 +37,12 @@ class MainActivity : AppCompatActivity() {
     var mSourceAdapter: SourceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.plant(Timber.DebugTree())
+        Timber.d("Hello from Main Activity")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        swipeRefresh = swipeRefresh
+//        swipeRefresh = swipeRefresh
         mRecyclerView = sourceRecyclerView
         sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel::class.java)
         getAllSources()
@@ -46,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getAllSources(){
 //        swipeRefresh!!.isRefreshing = false
+
         sourceViewModel!!.allSources.observe(this, Observer { sourceList ->
             prepareRecyclerView(sourceList)
         })
@@ -65,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int){
                 Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
                 val i = Intent(this@MainActivity, ArticleActivity::class.java)
+                i.putExtra("SourceName", sourceList!![position].name)
                 startActivity(i)
             }
         }))

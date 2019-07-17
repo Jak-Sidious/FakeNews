@@ -13,7 +13,7 @@ import com.example.fakenews.R
 
 class SourceAdapter(val sourceList: List<SourceX>?) : RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
 
-    override fun getItemCount()=sourceList!!.size
+    override fun getItemCount()= sourceList!!.size
 
     private var mContext: Context? = null
 

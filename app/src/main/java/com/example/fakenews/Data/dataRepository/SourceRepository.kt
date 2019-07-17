@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.await
+import timber.log.Timber
 
 @Suppress("EmptyDefaultConstructor", "TooGenericExceptionCaught")
 class SourceRepository()  {
@@ -26,19 +27,21 @@ class SourceRepository()  {
 
 
     fun getMutableLiveData(): MutableLiveData<List<SourceX>> {
+
         CoroutineScope(Dispatchers.IO).launch {
+//            Timber.d("I was called")
             val request = getSources.getAllSources(BuildConfig.apiKey)
+            Timber.d("I was called on request $request")
             withContext(Dispatchers.Main){
                 try {
-
                     val response = request.await()
                     sourced = response.sources
                     mutableLiveData.value = sourced
                 } catch (e: HttpException) {
-                    TODO()//log exception
+                    Timber.d("Sources HttpException $e")
 
                 } catch (e: Throwable) {
-                    TODO() // Log Error
+                    Timber.d("From sources throwable $e")
                 }
             }
         }
@@ -52,23 +55,3 @@ class SourceRepository()  {
         }
     }
 }
-
-//Original
-//fun refreshTitle(onStateChanged: TitleStateListener) {
-//    onStateChanged(Loading)
-//    val call = network.fetchNewWelcome()
-//    call.addOnResultListener { result ->
-//        when (result) {
-//            is FakeNetworkSuccess<String> -> {
-//                BACKGROUND.submit {
-//                    // run insertTitle on a background thread
-//                    titleDao.insertTitle(Title(result.data))
-//                }
-//                onStateChanged(Success)
-//            }
-//            is FakeNetworkError -> {
-//                onStateChanged(Error(TitleRefreshError(result.error)))
-//            }
-//        }
-//    }
-//}
