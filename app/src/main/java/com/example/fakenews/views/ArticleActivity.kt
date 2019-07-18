@@ -18,7 +18,9 @@ import com.example.fakenews.R
 import com.example.fakenews.adapters.ArticleAdapter
 import com.example.fakenews.data.models.Article
 import com.example.fakenews.viewModels.ArticleViewModel
-import com.example.fakenews.viewModels.CustomViewModelFactory
+import com.example.fakenews.viewModels.ArticleViewModelFactory
+import com.example.fakenews.viewModels.QueriedViewModel
+import com.example.fakenews.viewModels.QueriedViewModelFactory
 import kotlinx.android.synthetic.main.article_activity.*
 import timber.log.Timber
 
@@ -26,6 +28,7 @@ class ArticleActivity : AppCompatActivity() {
 
     var aRecyclerView: RecyclerView? = null
     var articleViewModel: ArticleViewModel? = null
+    var queryViewModel: QueriedViewModel? = null
     var aArticleAdapter: ArticleAdapter? = null
     var viewHeader: String? = null
     var sourced: String? = null
@@ -41,14 +44,13 @@ class ArticleActivity : AppCompatActivity() {
         Timber.d("Source Name $viewHeader, source id $sourced query string $queryString")
         aRecyclerView = articleRecyclerView
         createArticleView()
-
-//        articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel(createArticleView())::class.java)
         articleViewModel = ViewModelProviders.of(
-            this, CustomViewModelFactory(sourced)).get(ArticleViewModel::class.java)
+            this, ArticleViewModelFactory(sourced)).get(ArticleViewModel::class.java)
 
+        queryViewModel = ViewModelProviders.of(
+            this, QueriedViewModelFactory(queryString,"en","publishedAt")).get(QueriedViewModel::class.java)
         getAllArticles()
         setHeaderText()
-
     }
 
     fun createArticleView(): String? {
@@ -68,10 +70,15 @@ class ArticleActivity : AppCompatActivity() {
     }
 
     fun getAllArticles() {
-        articleViewModel!!.allArticles.observe(this, Observer { articleList ->
-            prepareArticlesView(articleList)
-        })
-
+        if (queryString == null){
+            articleViewModel!!.allArticles.observe(this, Observer { articleList ->
+                prepareArticlesView(articleList)
+            })
+        } else {
+            queryViewModel!!.queriedArticles.observe(this, Observer { queryList ->
+                prepareArticlesView(queryList)
+            })
+        }
     }
 
     private fun prepareArticlesView(articleList: List<Article>?) {
@@ -93,7 +100,7 @@ class ArticleActivity : AppCompatActivity() {
                     override fun onClick(view: View, position: Int) {
                         Toast.makeText(this@ArticleActivity, articleList!![position].url, Toast.LENGTH_SHORT).show()
                         val webs = Intent(this@ArticleActivity, ArticleDisplayActivity::class.java)
-                        webs.putExtra("ArticleUrl", articleList!![position].url)
+                        webs.putExtra("ArticleUrl", articleList[position].url)
                         startActivity(webs)
                     }
                 })

@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int){
                 Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
                 val i = Intent(this@MainActivity, ArticleActivity::class.java)
-                i.putExtra("SourceId", sourceList!![position].id)
-                i.putExtra("SourceName", sourceList!![position].name)
+                i.putExtra("SourceId", sourceList[position].id)
+                i.putExtra("SourceName", sourceList[position].name)
                 startActivity(i)
             }
         }))
