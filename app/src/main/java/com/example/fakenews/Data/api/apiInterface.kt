@@ -15,10 +15,15 @@ interface ApiInterface {
 
     @GET("everything")
     fun getArticlesPerSource(
-        @Query("sources")sourceName: String,
-        @Query("apikey")apiKey: String
+        @Query("sources") sourceName: String?,
+        @Query("apikey") apiKey: String
+    ): Call<ArticlesPerSource>
+
+    @GET("everything")
+    fun getSearchQuery(
+        @Query("q") keyword: String?,
+        @Query("language") language: String?,
+        @Query("sortBy") sortBy: String?,
+        @Query("apiKey") apiKey: String
     ): Call<ArticlesPerSource>
 }
-
-
-

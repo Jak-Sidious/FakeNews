@@ -18,13 +18,15 @@ class ArticlesPerSourceRepository() {
 
     private var collected = mutableListOf<Article>()
     private var mutableArticleData = MutableLiveData<List<Article>>()
-    private var source: String = "abc-news"
+    private var requested = mutableListOf<Article>()
+    private var mutableQueryData = MutableLiveData<List<Article>>()
+
 
     private val getArticles by lazy {
         ApiClient.getService()
     }
 
-    fun getMutableArticleData(): MutableLiveData<List<Article>> {
+    fun getMutableArticleData(source: String?): MutableLiveData<List<Article>> {
         CoroutineScope(Dispatchers.IO).launch {
             val request = getArticles.getArticlesPerSource(source, BuildConfig.apiKey)
             withContext(Dispatchers.Default) {
@@ -43,5 +45,30 @@ class ArticlesPerSourceRepository() {
             Timber.d("This is it too $mutableArticleData")
         }
         return mutableArticleData
+    }
+
+    fun getQueriedArticleData(
+        keyword: String?,
+        language: String?,
+        sortBy: String?
+    ): MutableLiveData<List<Article>> {
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = getArticles.getSearchQuery(keyword, language, sortBy, BuildConfig.apiKey)
+            withContext(Dispatchers.Default) {
+                try {
+                    val response = request.await()
+                    requested = response.articles
+                    mutableQueryData.postValue(requested)
+                    Timber.d("This was queried $mutableQueryData")
+                } catch (e: HttpException) {
+                    Timber.e("Queried articles HttpException $e")
+
+                } catch (e: Throwable) {
+                    Timber.e("Queried articles Throwable $e")
+                }
+            }
+            Timber.d("This was Queried $mutableQueryData")
+        }
+        return mutableQueryData
     }
 }
