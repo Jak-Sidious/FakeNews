@@ -18,7 +18,9 @@ import com.example.fakenews.R
 import com.example.fakenews.adapters.ArticleAdapter
 import com.example.fakenews.data.models.Article
 import com.example.fakenews.viewModels.ArticleViewModel
+import com.example.fakenews.viewModels.CustomViewModelFactory
 import kotlinx.android.synthetic.main.article_activity.*
+import timber.log.Timber
 
 class ArticleActivity : AppCompatActivity() {
 
@@ -26,6 +28,7 @@ class ArticleActivity : AppCompatActivity() {
     var articleViewModel: ArticleViewModel? = null
     var aArticleAdapter: ArticleAdapter? = null
     var viewHeader: String? = null
+    var sourced: String? = null
     var queryString: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +36,27 @@ class ArticleActivity : AppCompatActivity() {
         setContentView(R.layout.article_activity)
         var sent: Bundle = intent.extras
         viewHeader = sent.getString("SourceName")
+        sourced = sent.getString("SourceId")
         queryString = sent.getString("SearchQuery")
+        Timber.d("Source Name $viewHeader, source id $sourced query string $queryString")
         aRecyclerView = articleRecyclerView
-        articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
+        createArticleView()
+
+//        articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel(createArticleView())::class.java)
+        articleViewModel = ViewModelProviders.of(
+            this, CustomViewModelFactory(sourced)).get(ArticleViewModel::class.java)
+
         getAllArticles()
         setHeaderText()
+
+    }
+
+    fun createArticleView(): String? {
+        return if(viewHeader == null){
+            queryString
+        } else {
+            viewHeader
+        }
     }
 
     fun setHeaderText(){

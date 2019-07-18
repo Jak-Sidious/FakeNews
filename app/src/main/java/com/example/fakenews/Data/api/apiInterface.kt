@@ -15,8 +15,8 @@ interface ApiInterface {
 
     @GET("everything")
     fun getArticlesPerSource(
-        @Query("sources")sourceName: String,
-        @Query("apikey")apiKey: String
+        @Query("sources") sourceName: String?,
+        @Query("apikey") apiKey: String
     ): Call<ArticlesPerSource>
 }
 
