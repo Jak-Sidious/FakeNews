@@ -30,7 +30,7 @@ class SourceRepository()  {
 
         CoroutineScope(Dispatchers.IO).launch {
 //            Timber.d("I was called")
-            val request = getSources.getAllSources(BuildConfig.apiKey)
+            val request = getSources.getAllSources( "en", BuildConfig.apiKey)
             Timber.d("I was called on request $request")
             withContext(Dispatchers.Main){
                 try {
