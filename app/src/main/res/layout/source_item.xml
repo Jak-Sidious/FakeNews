@@ -24,6 +24,8 @@
             android:text="@string/source_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/source_logo"
             app:layout_constraintBottom_toTopOf="@id/source_description"/>
@@ -32,33 +34,35 @@
             android:id="@+id/source_description"
             android:text="@string/source_description"
             android:layout_width="match_parent"
+            android:justificationMode="inter_word"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/source_name"/>
 
-        <TextView
-            android:id="@+id/source_category"
-            android:text="@string/source_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/source_description"/>
+        <!--<TextView-->
+            <!--android:id="@+id/source_category"-->
+            <!--android:text="@string/source_category"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/source_description"/>-->
 
-        <TextView
-            android:id="@+id/source_language"
-            android:text="@string/source_language"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/source_category"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+        <!--<TextView-->
+            <!--android:id="@+id/source_language"-->
+            <!--android:text="@string/source_language"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/source_category"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"/>-->
 
-        <TextView
-            android:id="@+id/source_country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/source_country"
-            app:layout_constraintTop_toBottomOf="@id/source_category"
-            app:layout_constraintRight_toRightOf="parent"/>
+        <!--<TextView-->
+            <!--android:id="@+id/source_country"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/source_country"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/source_category"-->
+            <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
 
 
