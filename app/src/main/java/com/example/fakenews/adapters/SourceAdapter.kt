@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fakenews.data.models.SourceX
@@ -46,6 +47,7 @@ class SourceAdapter(val sourceList: List<SourceX>?) : RecyclerView.Adapter<Sourc
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val mSourceLogo:ImageView = itemView.findViewById(R.id.source_logo)
         val mSourceName:TextView = itemView.findViewById(R.id.source_name)
         val mSourceDescription:TextView = itemView.findViewById(R.id.source_description)
         val mSourceCategory:TextView = itemView.findViewById(R.id.source_category)
