@@ -13,4 +13,5 @@
     <string name="source_name">Source name</string>
     <string name="news_sources">News Sources</string>
     <string name="search_title">search_title</string>
+    <string name="news_source_image">News Source Image</string>
 </resources>
