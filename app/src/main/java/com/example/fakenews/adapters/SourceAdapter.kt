@@ -45,7 +45,6 @@ class SourceAdapter(val sourceList: List<SourceX>?) : RecyclerView.Adapter<Sourc
         val mSource = sourceList!![position]
 
         val fixedText = mSource.id.replace("-","_")
-        Timber.d("original ${mSource.id} versus new $fixedText")
 
         Glide.with(sContext!!)
             .load(getImage(fixedText))
