@@ -1,4 +1,4 @@
-package com.example.fakenews
+package com.example.fakenews.views
 
 import android.app.SearchManager
 import android.content.Context
@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.fakenews.R
 import com.example.fakenews.data.models.SourceX
 import com.example.fakenews.adapters.SourceAdapter
 import com.example.fakenews.viewModels.SourceViewModel
-import com.example.fakenews.views.ArticleActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -61,22 +61,31 @@ class MainActivity : AppCompatActivity() {
     private fun prepareRecyclerView(sourceList: List<SourceX>?) {
         mSourceAdapter = SourceAdapter(sourceList)
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mRecyclerView!!.layoutManager = GridLayoutManager(this, PORTRAIT_COUNT)
+            mRecyclerView!!.layoutManager = GridLayoutManager(this,
+                PORTRAIT_COUNT
+            )
         } else {
-            mRecyclerView!!.layoutManager = GridLayoutManager(this, LANDSCAPE_COUNT)
+            mRecyclerView!!.layoutManager = GridLayoutManager(this,
+                LANDSCAPE_COUNT
+            )
         }
         mRecyclerView!!.itemAnimator = DefaultItemAnimator()
         mRecyclerView!!.adapter = mSourceAdapter
-        mRecyclerView!!.addOnItemTouchListener(RecyclerTouchListener(this, mRecyclerView!!, object: ClickListener{
+        mRecyclerView!!.addOnItemTouchListener(
+            RecyclerTouchListener(
+                this,
+                mRecyclerView!!,
+                object : ClickListener {
 
-            override fun onClick(view: View, position: Int){
-                Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
-                val i = Intent(this@MainActivity, ArticleActivity::class.java)
-                i.putExtra("SourceId", sourceList[position].id)
-                i.putExtra("SourceName", sourceList[position].name)
-                startActivity(i)
-            }
-        }))
+                    override fun onClick(view: View, position: Int) {
+                        Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
+                        val i = Intent(this@MainActivity, ArticleActivity::class.java)
+                        i.putExtra("SourceId", sourceList[position].id)
+                        i.putExtra("SourceName", sourceList[position].name)
+                        startActivity(i)
+                    }
+                })
+        )
     }
 
     interface ClickListener {

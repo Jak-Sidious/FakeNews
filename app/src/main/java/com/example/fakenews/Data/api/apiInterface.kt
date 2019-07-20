@@ -11,7 +11,9 @@ import retrofit2.http.Query
 interface ApiInterface {
 
     @GET("sources")
-    fun getAllSources(@Query("apiKey")apiKey: String): Call<Source>
+    fun getAllSources(
+        @Query("language") language: String?,
+        @Query("apiKey")apiKey: String): Call<Source>
 
     @GET("everything")
     fun getArticlesPerSource(
