@@ -11,11 +11,12 @@
         android:text="@string/news_sources"
         android:textStyle="bold"
         android:textSize="20sp"
+        android:textColor="#d3d3d3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-
         android:gravity="center"
+        android:background="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@id/swiperefresh"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,6 +31,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sourceRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="#d3d3d3"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
