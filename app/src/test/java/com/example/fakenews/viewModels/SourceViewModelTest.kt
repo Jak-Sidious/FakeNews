@@ -40,6 +40,11 @@ class SourceViewModelTest {
     }
 
     @Test
+    fun getSiurceViewModel(){
+        assertThat(sourceViewModel).isInstanceOf(SourceViewModel::class.java)
+    }
+
+    @Test
     fun getAllSources() {
         sourceRepository.addSource(source)
         assertThat(sourceRepository.sourceData.size).isEqualTo(1)
