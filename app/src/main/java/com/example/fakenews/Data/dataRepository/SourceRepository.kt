@@ -1,6 +1,5 @@
 package com.example.fakenews.data.dataRepository
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import com.example.fakenews.BuildConfig
 import com.example.fakenews.data.api.ApiClient
@@ -18,18 +17,13 @@ class SourceRepository()  {
     private var sourced = mutableListOf<SourceX>()
     private var mutableLiveData = MutableLiveData<List<SourceX>>()
 
-    //hashmap for testing
-    var sourceData: LinkedHashMap<String, SourceX> = LinkedHashMap()
-
     private val getSources by lazy {
         ApiClient.getService()
     }
 
 
     fun getMutableLiveData(): MutableLiveData<List<SourceX>> {
-
         CoroutineScope(Dispatchers.IO).launch {
-//            Timber.d("I was called")
             val request = getSources.getAllSources( "en", BuildConfig.apiKey)
             Timber.d("I was called on request $request")
             withContext(Dispatchers.Main){
@@ -48,10 +42,4 @@ class SourceRepository()  {
         return mutableLiveData
     }
 
-    @VisibleForTesting
-    fun addSource(vararg sources: SourceX){
-        for (source in sources){
-            sourceData[source.name] = source
-        }
-    }
 }

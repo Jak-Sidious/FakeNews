@@ -3,6 +3,7 @@ package com.example.fakenews.viewModels
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.fakenews.data.dataRepository.ArticlesPerSourceRepository
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -32,7 +33,17 @@ class QueriedViewModelTest {
     }
 
     @Test
-    fun getQueryViewModel(){
+    fun getQueryViewModel() {
         assertThat(queryViewModel).isInstanceOf(QueriedViewModel::class.java)
     }
+
+    @Test
+    fun getQueriedArticles() {
+        queryViewModel.queriedArticles.observeForever {  }
+        val response = queryRepository.getQueriedArticleData("andela",
+            "en", "publishedAt")
+        assertThat(response).isNotNull()
+
+    }
 }
+
