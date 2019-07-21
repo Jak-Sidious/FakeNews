@@ -21,6 +21,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fakenews.R
 import com.example.fakenews.data.models.SourceX
 import com.example.fakenews.adapters.SourceAdapter
+import com.example.fakenews.utils.ClickListener
+import com.example.fakenews.utils.RecyclerTouchListener
 import com.example.fakenews.viewModels.SourceViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
@@ -61,22 +63,14 @@ class MainActivity : AppCompatActivity() {
     private fun prepareRecyclerView(sourceList: List<SourceX>?) {
         mSourceAdapter = SourceAdapter(sourceList)
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mRecyclerView!!.layoutManager = GridLayoutManager(this,
-                PORTRAIT_COUNT
-            )
+            mRecyclerView!!.layoutManager = GridLayoutManager(this, PORTRAIT_COUNT)
         } else {
-            mRecyclerView!!.layoutManager = GridLayoutManager(this,
-                LANDSCAPE_COUNT
-            )
+            mRecyclerView!!.layoutManager = GridLayoutManager(this, LANDSCAPE_COUNT)
         }
         mRecyclerView!!.itemAnimator = DefaultItemAnimator()
         mRecyclerView!!.adapter = mSourceAdapter
         mRecyclerView!!.addOnItemTouchListener(
-            RecyclerTouchListener(
-                this,
-                mRecyclerView!!,
-                object : ClickListener {
-
+            RecyclerTouchListener(this, mRecyclerView!!, object : ClickListener {
                     override fun onClick(view: View, position: Int) {
                         Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
                         val i = Intent(this@MainActivity, ArticleActivity::class.java)
@@ -86,42 +80,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
         )
-    }
-
-    interface ClickListener {
-        fun onClick(view: View, position: Int)
-    }
-
-    internal class RecyclerTouchListener(
-        context: Context,
-        recyclerView: RecyclerView,
-        private val clickListener: ClickListener?)
-        : RecyclerView.OnItemTouchListener {
-        private var gestureDetector: GestureDetector? = null
-
-        init {
-            gestureDetector = GestureDetector(context, object: GestureDetector.SimpleOnGestureListener(){
-                override fun onSingleTapUp(e: MotionEvent?): Boolean {
-                    return true
-                }
-            })
-        }
-
-        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-            val child = rv.findChildViewUnder(e.x, e.y)
-            if (child != null && clickListener != null && gestureDetector!!.onTouchEvent(e)){
-                clickListener.onClick(child, rv.getChildPosition(child))
-            }
-            return false
-        }
-
-        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
     }
 
     companion object {

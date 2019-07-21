@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fakenews.R
 import com.example.fakenews.adapters.ArticleAdapter
 import com.example.fakenews.data.models.Article
+import com.example.fakenews.utils.ClickListener
+import com.example.fakenews.utils.RecyclerTouchListener
 import com.example.fakenews.viewModels.ArticleViewModel
 import com.example.fakenews.viewModels.ArticleViewModelFactory
 import com.example.fakenews.viewModels.QueriedViewModel
@@ -83,7 +85,6 @@ class ArticleActivity : AppCompatActivity() {
 
     private fun prepareArticlesView(articleList: List<Article>?) {
         aArticleAdapter = ArticleAdapter(articleList)
-
         if(this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             aRecyclerView!!.layoutManager = LinearLayoutManager(this)
         } else {
@@ -92,11 +93,7 @@ class ArticleActivity : AppCompatActivity() {
         aRecyclerView!!.itemAnimator = DefaultItemAnimator()
         aRecyclerView!!.adapter = aArticleAdapter
         aRecyclerView!!.addOnItemTouchListener(
-            RecyclerTouchListener(
-                this,
-                aRecyclerView!!,
-                object : ClickListener {
-
+            RecyclerTouchListener(this, aRecyclerView!!, object : ClickListener {
                     override fun onClick(view: View, position: Int) {
                         Toast.makeText(this@ArticleActivity, articleList!![position].url, Toast.LENGTH_SHORT).show()
                         val webs = Intent(this@ArticleActivity, ArticleDisplayActivity::class.java)
@@ -105,41 +102,5 @@ class ArticleActivity : AppCompatActivity() {
                     }
                 })
         )
-    }
-
-    interface ClickListener {
-        fun onClick(view: View, position: Int)
-    }
-
-    internal class RecyclerTouchListener(
-        context: Context,
-        recyclerView: RecyclerView,
-        private val clickListener: ClickListener?)
-        : RecyclerView.OnItemTouchListener {
-        private var gestureDetector: GestureDetector? = null
-
-        init {
-            gestureDetector = GestureDetector(context, object: GestureDetector.SimpleOnGestureListener(){
-                override fun onSingleTapUp(e: MotionEvent?): Boolean {
-                    return true
-                }
-            })
-        }
-
-        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-            val child = rv.findChildViewUnder(e.x, e.y)
-            if (child != null && clickListener != null && gestureDetector!!.onTouchEvent(e)){
-                clickListener.onClick(child, rv.getChildPosition(child))
-            }
-            return false
-        }
-
-        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
     }
 }
