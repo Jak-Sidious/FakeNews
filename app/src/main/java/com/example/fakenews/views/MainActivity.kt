@@ -4,13 +4,13 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fakenews.R
-import com.example.fakenews.data.models.SourceX
 import com.example.fakenews.adapters.SourceAdapter
+import com.example.fakenews.data.models.SourceX
 import com.example.fakenews.utils.ClickListener
 import com.example.fakenews.utils.RecyclerTouchListener
 import com.example.fakenews.viewModels.SourceViewModel

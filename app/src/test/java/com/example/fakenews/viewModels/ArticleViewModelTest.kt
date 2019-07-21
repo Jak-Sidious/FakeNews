@@ -3,6 +3,7 @@ package com.example.fakenews.viewModels
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.fakenews.data.dataRepository.ArticlesPerSourceRepository
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -12,17 +13,16 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class ArticleViewModelTest {
 
-    private lateinit var articleViewModel: ArticleViewModel
-
-    private lateinit var articleRepository: ArticlesPerSourceRepository
-
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var articleViewModel: ArticleViewModel
+    private lateinit var articleRepository: ArticlesPerSourceRepository
+
 
     @Before
     fun setUp() {
         articleRepository = ArticlesPerSourceRepository()
-
         articleViewModel = ArticleViewModel("source")
     }
 
@@ -34,5 +34,14 @@ class ArticleViewModelTest {
     @Test
     fun getArticleViewModel(){
         assertThat(articleViewModel).isInstanceOf(ArticleViewModel::class.java)
+    }
+
+    @Test
+    fun getAllArticlesSuccesfully() {
+        runBlocking {
+            articleViewModel.allArticles.observeForever {  }
+            val response = articleRepository.getMutableArticleData("Yass")
+            assertThat(response).isNotNull()
+        }
     }
 }

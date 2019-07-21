@@ -33,6 +33,7 @@ class SourceViewModelTest {
     @Test
     fun getSourceRepository() {
         assertThat(sourceRepository).isInstanceOf(SourceRepository::class.java)
+        assertThat(sourceRepository).isNotNull()
     }
 
     @Test

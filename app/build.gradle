@@ -98,6 +98,7 @@ dependencies {
 
     //Testing
     androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.2'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
 
     //local unit tests
     testImplementation 'junit:junit:4.12'
