@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.GestureDetector
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
@@ -48,7 +49,6 @@ class ArticleActivity : AppCompatActivity() {
         createArticleView()
         articleViewModel = ViewModelProviders.of(
             this, ArticleViewModelFactory(sourced)).get(ArticleViewModel::class.java)
-
         queryViewModel = ViewModelProviders.of(
             this, QueriedViewModelFactory(queryString,"en","publishedAt")).get(QueriedViewModel::class.java)
         getAllArticles()
@@ -95,7 +95,10 @@ class ArticleActivity : AppCompatActivity() {
         aRecyclerView!!.addOnItemTouchListener(
             RecyclerTouchListener(this, aRecyclerView!!, object : ClickListener {
                     override fun onClick(view: View, position: Int) {
-                        Toast.makeText(this@ArticleActivity, articleList!![position].url, Toast.LENGTH_SHORT).show()
+                        val articleToast = Toast.makeText(this@ArticleActivity,
+                            articleList!![position].url, Toast.LENGTH_SHORT)
+                        articleToast.setGravity(Gravity.CENTER, 0 ,0)
+                        articleToast.show()
                         val webs = Intent(this@ArticleActivity, ArticleDisplayActivity::class.java)
                         webs.putExtra("ArticleUrl", articleList[position].url)
                         startActivity(webs)

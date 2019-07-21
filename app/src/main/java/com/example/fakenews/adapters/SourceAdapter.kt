@@ -17,13 +17,10 @@ import timber.log.Timber
 class SourceAdapter(val sourceList: List<SourceX>?) : RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
 
     override fun getItemCount()= sourceList!!.size
-
     private var sContext: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         this.sContext=parent.context
-
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.source_item,
@@ -34,24 +31,18 @@ class SourceAdapter(val sourceList: List<SourceX>?) : RecyclerView.Adapter<Sourc
     }
 
     private fun getImage(imageName: String): Int? {
-
         return sContext?.resources?.getIdentifier(imageName, "drawable", sContext!!.packageName)
     }
 
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val mSource = sourceList!![position]
-
         val fixedText = mSource.id.replace("-","_")
 
         Glide.with(sContext!!)
             .load(getImage(fixedText))
             .into(holder.mSourceLogo)
-
         holder.mSourceName.text = mSource.name
-
         holder.mSourceDescription.text = mSource.description
     }
 

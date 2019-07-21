@@ -56,8 +56,8 @@ class ArticlesPerSourceRepository() {
             val request = getArticles.getSearchQuery(keyword, language, sortBy, BuildConfig.apiKey)
             withContext(Dispatchers.Default) {
                 try {
-                    val response = request.await()
-                    requested = response.articles
+                    val responded = request.await()
+                    requested = responded.articles
                     mutableQueryData.postValue(requested)
                     Timber.d("This was queried $mutableQueryData")
                 } catch (e: HttpException) {

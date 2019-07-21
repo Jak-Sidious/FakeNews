@@ -6,9 +6,8 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.GestureDetector
+import android.view.Gravity
 import android.view.Menu
-import android.view.MotionEvent
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
@@ -71,14 +70,17 @@ class MainActivity : AppCompatActivity() {
         mRecyclerView!!.adapter = mSourceAdapter
         mRecyclerView!!.addOnItemTouchListener(
             RecyclerTouchListener(this, mRecyclerView!!, object : ClickListener {
-                    override fun onClick(view: View, position: Int) {
-                        Toast.makeText(this@MainActivity, sourceList!![position].name, Toast.LENGTH_SHORT).show()
-                        val i = Intent(this@MainActivity, ArticleActivity::class.java)
-                        i.putExtra("SourceId", sourceList[position].id)
-                        i.putExtra("SourceName", sourceList[position].name)
-                        startActivity(i)
-                    }
-                })
+                override fun onClick(view: View, position: Int) {
+                    val mainToast = Toast.makeText(this@MainActivity,
+                        sourceList!![position].name, Toast.LENGTH_SHORT)
+                    mainToast.setGravity(Gravity.CENTER, 0 ,0)
+                    mainToast.show()
+                    val i = Intent(this@MainActivity, ArticleActivity::class.java)
+                    i.putExtra("SourceId", sourceList[position].id)
+                    i.putExtra("SourceName", sourceList[position].name)
+                    startActivity(i)
+                }
+            })
         )
     }
 
