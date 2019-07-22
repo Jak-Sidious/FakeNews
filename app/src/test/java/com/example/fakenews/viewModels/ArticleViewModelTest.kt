@@ -33,7 +33,7 @@ class ArticleViewModelTest {
 
     @Test
     fun getArticleViewModel(){
-        assertThat(articleViewModel).isInstanceOf(ArticleViewModel::class.java)
+        assertThat(articleViewModel).isInstanceOf(ArticleViewModelFactory::class.java)
     }
 
     @Test

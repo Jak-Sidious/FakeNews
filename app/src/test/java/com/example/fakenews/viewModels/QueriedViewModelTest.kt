@@ -34,7 +34,7 @@ class QueriedViewModelTest {
 
     @Test
     fun getQueryViewModel() {
-        assertThat(queryViewModel).isInstanceOf(QueriedViewModel::class.java)
+        assertThat(queryViewModel).isInstanceOf(QueriedViewModelFactory::class.java)
     }
 
     @Test
