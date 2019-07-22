@@ -39,7 +39,7 @@ class ArticleViewModelTest {
     fun getAllArticlesSuccesfully() {
         runBlocking {
             articleViewModel.allArticles.observeForever {  }
-            val response = articleRepository.getMutableArticleData("Yass")
+            val response = articleRepository.getMutableArticleData("abc")
             assertThat(response).isNotNull()
         }
     }

@@ -92,7 +92,6 @@ class MainActivityTest {
         }))}
         assertNotNull(clicker)
         recycled.findViewHolderForAdapterPosition(0)?.itemView?.performClick()?.let { assertTrue(it) }
-
     }
 
     @After

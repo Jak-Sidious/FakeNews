@@ -22,7 +22,6 @@ class QueriedViewModelTest {
     @Before
     fun setUp() {
         queryRepository = ArticlesPerSourceRepository()
-
         queryViewModel = QueriedViewModel("query", "en", "published")
     }
 
@@ -38,13 +37,13 @@ class QueriedViewModelTest {
 
     @Test
     fun getQueriedArticles() {
-        queryViewModel.queriedArticles.observeForever {
+        queryViewModel.queriedArticles.observeForever {}
             val response = queryRepository.getQueriedArticleData(
                 "andela",
                 "en", "publishedAt"
             )
             assertThat(response).isNotNull()
-        }
+
     }
 }
 

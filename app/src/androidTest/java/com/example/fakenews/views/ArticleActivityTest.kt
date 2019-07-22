@@ -2,8 +2,11 @@ package com.example.fakenews.views
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.os.Bundle
 import android.widget.TextView
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -13,12 +16,14 @@ import com.example.fakenews.data.models.Article
 import com.example.fakenews.data.models.SourceXX
 import com.example.fakenews.viewModels.ArticleViewModel
 import com.example.fakenews.viewModels.QueriedViewModel
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 
 @LargeTest
@@ -35,6 +40,7 @@ class ArticleActivityTest {
     lateinit var mArticle: ArticleActivity
     lateinit var mArticle1: ArticleActivity
     lateinit var i: Intent
+    lateinit var sent: Bundle
     lateinit var article1: Article
     lateinit var article2: Article
     lateinit var xx1: SourceXX
@@ -51,6 +57,7 @@ class ArticleActivityTest {
         i.putExtra("SourceName", "name")
         i.putExtra("SearchQuery", "query")
         mArticle = rule.launchActivity(i)
+        sent = mArticle.sent
         mArticle.aRecyclerView
         xx1 = SourceXX("test1", "test1")
         xx2 = SourceXX("test2", "test2")
@@ -87,6 +94,7 @@ class ArticleActivityTest {
         var queryString = mArticle.queryString
         assertNotNull(queryString)
     }
+
 
     @Test
     fun testRecyclerView() {
