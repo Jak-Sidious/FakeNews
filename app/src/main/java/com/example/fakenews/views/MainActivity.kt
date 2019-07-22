@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -57,9 +58,11 @@ class MainActivity : AppCompatActivity() {
         sourceViewModel!!.allSources.observe(this, Observer { sourceList ->
             prepareRecyclerView(sourceList)
         })
+
+
     }
 
-    private fun prepareRecyclerView(sourceList: List<SourceX>?) {
+    fun prepareRecyclerView(sourceList: List<SourceX>?) {
         mSourceAdapter = SourceAdapter(sourceList)
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             mRecyclerView!!.layoutManager = GridLayoutManager(this, PORTRAIT_COUNT)
