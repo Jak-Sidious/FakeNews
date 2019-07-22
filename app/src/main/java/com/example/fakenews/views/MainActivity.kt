@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -26,6 +25,8 @@ import com.example.fakenews.utils.RecyclerTouchListener
 import com.example.fakenews.viewModels.SourceViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+
+
 
 
 @Suppress("DEPRECATION", "UNUSED_PARAMETER")
@@ -120,3 +121,16 @@ class MainActivity : AppCompatActivity() {
 
 }
 
+//menu
+//fun onCreateOptionsMenu(menu: Menu): Boolean {
+//    getMenuInflater().inflate(R.menu.main, menu)
+//    return super.onCreateOptionsMenu(menu)
+//}
+//
+//fun onMenuItemSelected(featureId: Int, item: MenuItem): Boolean {
+//    when (item.getItemId()) {
+//        R.id.exit -> this.finish()
+//        else -> Toast.makeText(this, getString(R.string.errMsg), Toast.LENGTH_SHORT).show()
+//    }
+//    return super.onMenuItemSelected(featureId, item)
+//}
