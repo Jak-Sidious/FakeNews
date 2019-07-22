@@ -19,7 +19,6 @@ class ArticleViewModelTest {
     private lateinit var articleViewModel: ArticleViewModel
     private lateinit var articleRepository: ArticlesPerSourceRepository
 
-
     @Before
     fun setUp() {
         articleRepository = ArticlesPerSourceRepository()

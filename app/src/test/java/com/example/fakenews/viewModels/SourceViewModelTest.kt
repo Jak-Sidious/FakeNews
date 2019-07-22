@@ -1,6 +1,5 @@
 package com.example.fakenews.viewModels
 
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.fakenews.data.dataRepository.SourceRepository
 
@@ -12,7 +11,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-
 
 @RunWith(JUnit4::class)
 class SourceViewModelTest {
@@ -50,7 +48,6 @@ class SourceViewModelTest {
             }
         }
     }
-
 
 }
 

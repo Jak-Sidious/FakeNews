@@ -13,12 +13,11 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class QueriedViewModelTest {
 
-    private lateinit var queryViewModel: QueriedViewModel
-
-    private lateinit var queryRepository:  ArticlesPerSourceRepository
-
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var queryViewModel: QueriedViewModel
+    private lateinit var queryRepository:  ArticlesPerSourceRepository
 
     @Before
     fun setUp() {
@@ -39,11 +38,13 @@ class QueriedViewModelTest {
 
     @Test
     fun getQueriedArticles() {
-        queryViewModel.queriedArticles.observeForever {  }
-        val response = queryRepository.getQueriedArticleData("andela",
-            "en", "publishedAt")
-        assertThat(response).isNotNull()
-
+        queryViewModel.queriedArticles.observeForever {
+            val response = queryRepository.getQueriedArticleData(
+                "andela",
+                "en", "publishedAt"
+            )
+            assertThat(response).isNotNull()
+        }
     }
 }
 
