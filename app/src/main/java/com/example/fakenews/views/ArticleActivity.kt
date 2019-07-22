@@ -33,6 +33,7 @@ class ArticleActivity : AppCompatActivity() {
     var articleViewModel: ArticleViewModel? = null
     var queryViewModel: QueriedViewModel? = null
     var aArticleAdapter: ArticleAdapter? = null
+    lateinit var sent : Bundle
     var viewHeader: String? = null
     var sourced: String? = null
     var queryString: String? = null
@@ -40,7 +41,7 @@ class ArticleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.article_activity)
-        var sent: Bundle = intent.extras
+        sent = intent.extras
         viewHeader = sent.getString("SourceName")
         sourced = sent.getString("SourceId")
         queryString = sent.getString("SearchQuery")

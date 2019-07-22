@@ -20,6 +20,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.LargeTest
 import com.example.fakenews.utils.ClickListener
 import com.example.fakenews.utils.RecyclerTouchListener
+import org.junit.After
 
 
 @LargeTest
@@ -36,6 +37,7 @@ class MainActivityTest {
     lateinit var source1: SourceX
     lateinit var source2: SourceX
     lateinit var input: List<SourceX>
+
 
     @Before
     fun setUp() {
@@ -54,14 +56,13 @@ class MainActivityTest {
     }
 
     @Test
-    fun testRecyclerView(){
+    fun testRecyclerView() {
         var view = mActivity.findViewById<RecyclerView>(R.id.sourceRecyclerView)
         assertNotNull(view)
     }
 
     @Test
     fun testPrepareRecyclerView() {
-
         assertNotNull(mActivity.runOnUiThread {mActivity.prepareRecyclerView(input)  } )
     }
 
@@ -92,6 +93,11 @@ class MainActivityTest {
         assertNotNull(clicker)
         recycled.findViewHolderForAdapterPosition(0)?.itemView?.performClick()?.let { assertTrue(it) }
 
+    }
+
+    @After
+    fun tearDown(){
+        mActivity.finish()
     }
 
 }

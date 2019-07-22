@@ -121,16 +121,3 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-//menu
-//fun onCreateOptionsMenu(menu: Menu): Boolean {
-//    getMenuInflater().inflate(R.menu.main, menu)
-//    return super.onCreateOptionsMenu(menu)
-//}
-//
-//fun onMenuItemSelected(featureId: Int, item: MenuItem): Boolean {
-//    when (item.getItemId()) {
-//        R.id.exit -> this.finish()
-//        else -> Toast.makeText(this, getString(R.string.errMsg), Toast.LENGTH_SHORT).show()
-//    }
-//    return super.onMenuItemSelected(featureId, item)
-//}
