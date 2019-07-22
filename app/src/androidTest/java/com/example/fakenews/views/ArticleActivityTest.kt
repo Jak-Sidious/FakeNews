@@ -59,8 +59,10 @@ class ArticleActivityTest {
         input = listOf(article1, article2)
         mArticle1 = rule.activity
         mArticle1.aRecyclerView
+        mArticle1.aArticleAdapter
 
-        mArticle1.queryViewModel
+        aVm = mArticle1.articleViewModel!!
+        qVm = mArticle1.queryViewModel!!
     }
 
 
@@ -72,8 +74,8 @@ class ArticleActivityTest {
 
     @Test
     fun testViewModels(){
-//        assertThat()
-
+        assertEquals(aVm, mArticle.articleViewModel)
+        assertEquals(qVm, mArticle.queryViewModel)
     }
 
     @Test
@@ -102,10 +104,6 @@ class ArticleActivityTest {
         assertNotNull(mArticle.runOnUiThread { mArticle.getAllArticles() })
     }
 
-    @Test
-    fun testPrepareArticlesView() {
-        assertNotNull(mArticle1.runOnUiThread { })
-    }
 
     @After
     fun tearDown(){
