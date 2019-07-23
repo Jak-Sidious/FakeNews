@@ -34,33 +34,33 @@ class MainActivity : AppCompatActivity() {
 
     //TODO() Setup Backup options & Firebase Indexing
     //TODO() Remove suppression warnings and fix them accordingly
-    //TODO() Fix swipe refresh tools and create a base adapater class
     var mRecyclerView: RecyclerView? = null
-    var swipeRefresh: SwipeRefreshLayout? = null
+    var mSwipeRefresh: SwipeRefreshLayout? = null
     var sourceViewModel: SourceViewModel? = null
-
     var mSourceAdapter: SourceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.plant(Timber.DebugTree())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        swipeRefresh = swipeRefresh
+        mSwipeRefresh = swipeRefresh
         mRecyclerView = sourceRecyclerView
         sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel::class.java)
         getAllSources()
-//        swipeRefresh!!.setOnRefreshListener { getAllSources() }
+        mSwipeRefresh?.setOnRefreshListener {
+            getAllSources()
+        }
+        mSwipeRefresh?.setColorSchemeResources(android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light)
     }
 
     fun getAllSources(){
-//        swipeRefresh!!.isRefreshing = false
-
+        mSwipeRefresh!!.isRefreshing = false
         sourceViewModel!!.allSources.observe(this, Observer { sourceList ->
             prepareRecyclerView(sourceList)
         })
-
-
     }
 
     fun prepareRecyclerView(sourceList: List<SourceX>?) {
@@ -118,6 +118,4 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-
 }
-

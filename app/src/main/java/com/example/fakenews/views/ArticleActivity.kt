@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fakenews.R
 import com.example.fakenews.adapters.ArticleAdapter
 import com.example.fakenews.data.models.Article
@@ -33,6 +34,7 @@ class ArticleActivity : AppCompatActivity() {
     var articleViewModel: ArticleViewModel? = null
     var queryViewModel: QueriedViewModel? = null
     var aArticleAdapter: ArticleAdapter? = null
+    var aSwipeRefresh: SwipeRefreshLayout? = null
     lateinit var sent : Bundle
     var viewHeader: String? = null
     var sourced: String? = null
@@ -45,6 +47,7 @@ class ArticleActivity : AppCompatActivity() {
         viewHeader = sent.getString("SourceName")
         sourced = sent.getString("SourceId")
         queryString = sent.getString("SearchQuery")
+        aSwipeRefresh = swipeRefresher
         Timber.d("Source Name $viewHeader, source id $sourced query string $queryString")
         aRecyclerView = articleRecyclerView
         createArticleView()
@@ -53,6 +56,13 @@ class ArticleActivity : AppCompatActivity() {
         queryViewModel = ViewModelProviders.of(
             this, QueriedViewModelFactory(queryString,"en","publishedAt")).get(QueriedViewModel::class.java)
         getAllArticles()
+        aSwipeRefresh?.setOnRefreshListener {
+            getAllArticles()
+        }
+        aSwipeRefresh?.setColorSchemeResources(android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light,
+            android.R.color.holo_red_light)
         setHeaderText()
     }
 
@@ -73,6 +83,7 @@ class ArticleActivity : AppCompatActivity() {
     }
 
     fun getAllArticles() {
+        aSwipeRefresh!!.isRefreshing = false
         if (queryString == null){
             articleViewModel!!.allArticles.observe(this, Observer { articleList ->
                 prepareArticlesView(articleList)

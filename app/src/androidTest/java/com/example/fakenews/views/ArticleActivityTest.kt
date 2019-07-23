@@ -38,7 +38,6 @@ class ArticleActivityTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     lateinit var mArticle: ArticleActivity
-    lateinit var mArticle1: ArticleActivity
     lateinit var i: Intent
     lateinit var sent: Bundle
     lateinit var article1: Article
@@ -64,12 +63,9 @@ class ArticleActivityTest {
         article1 = Article(xx1, "a", "b", "c", "d", "e", "f", "g")
         article2 = Article(xx2, "h", "i", "j", "k", "l", "m", "n")
         input = listOf(article1, article2)
-        mArticle1 = rule.activity
-        mArticle1.aRecyclerView
-        mArticle1.aArticleAdapter
-
-        aVm = mArticle1.articleViewModel!!
-        qVm = mArticle1.queryViewModel!!
+        sent = mArticle.sent
+        aVm = mArticle.articleViewModel!!
+        qVm = mArticle.queryViewModel!!
     }
 
 
@@ -77,6 +73,12 @@ class ArticleActivityTest {
     fun testArticleActivityLaunch() {
         var view = mArticle.findViewById<TextView>(R.id.Article_header)
         assertNotNull(view)
+//        assertEquals(view.text, "name")
+    }
+
+    @Test
+    fun testBundle(){
+        assertNotNull(sent)
     }
 
     @Test
