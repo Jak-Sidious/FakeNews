@@ -4,16 +4,22 @@ package com.example.fakenews.views
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.example.fakenews.R
 import com.example.fakenews.data.models.Article
 import com.example.fakenews.data.models.SourceXX
+import com.example.fakenews.utils.ClickListener
+import com.example.fakenews.utils.RecyclerTouchListener
 import com.example.fakenews.viewModels.ArticleViewModel
 import com.example.fakenews.viewModels.QueriedViewModel
 import kotlinx.coroutines.test.runBlockingTest
@@ -73,7 +79,6 @@ class ArticleActivityTest {
     fun testArticleActivityLaunch() {
         var view = mArticle.findViewById<TextView>(R.id.Article_header)
         assertNotNull(view)
-//        assertEquals(view.text, "name")
     }
 
     @Test
@@ -97,6 +102,11 @@ class ArticleActivityTest {
         assertNotNull(queryString)
     }
 
+    @Test
+    fun testSwipeRefresh() {
+        var refresher = mArticle.findViewById<SwipeRefreshLayout>(R.id.swipeRefresher)
+        assertNotNull(refresher)
+    }
 
     @Test
     fun testRecyclerView() {
@@ -114,6 +124,50 @@ class ArticleActivityTest {
         assertNotNull(mArticle.runOnUiThread { mArticle.getAllArticles() })
     }
 
+    @Test
+    fun testPrepareArticleList() {
+        assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
+    }
+
+    @Test
+    fun testgetAllArticles2(){
+        mArticle.finish()
+        var ext = Intent()
+        ext.putExtra("SourceId", "id")
+        ext.putExtra("SourceId", "id")
+        mArticle = rule.launchActivity(ext)
+        var header = mArticle.viewHeader
+        assertNull(header)
+        assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
+    }
+
+    @Test
+    fun testRecyclerViewOnClickLaunchesWebView() {
+        mArticle.setVisible(true)
+        var recycler = mArticle.runOnUiThread { mArticle.prepareArticlesView(input) }
+        assertNotNull(recycler)
+        var recycled = mArticle.findViewById<RecyclerView>(R.id.articleRecyclerView)
+        recycled.measure(0,0)
+        recycled.layout(0,0, 100, 100)
+        var clicker = mArticle.runOnUiThread {   recycled.addOnItemTouchListener(
+            RecyclerTouchListener(mArticle.applicationContext, recycled, object: ClickListener {
+                override fun onClick(view: View, position: Int) {
+                    val mainToast = Toast.makeText(mArticle.applicationContext, input[0].url,
+                        Toast.LENGTH_SHORT)
+                    assertNotNull(mainToast)
+                    mainToast.setGravity(Gravity.CENTER, 0 ,0)
+                    mainToast.show()
+                    assertNotNull(mainToast.show())
+                    val i = Intent(mArticle.applicationContext, ArticleDisplayActivity::class.java)
+                    i.putExtra("ArticleUrl", input[0].url)
+                    assertNotNull(mArticle.startActivity(i))
+                }
+
+            })
+        )}
+        assertNotNull(clicker)
+        recycled.findViewHolderForAdapterPosition(0)?.itemView?.performClick()?.let { assertTrue(it) }
+    }
 
     @After
     fun tearDown(){

@@ -16,6 +16,7 @@ import com.example.fakenews.data.models.SourceX
 import org.junit.Before
 import org.junit.runner.RunWith
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.filters.LargeTest
 import com.example.fakenews.utils.ClickListener
 import com.example.fakenews.utils.RecyclerTouchListener
@@ -37,7 +38,6 @@ class MainActivityTest {
     lateinit var source2: SourceX
     lateinit var input: List<SourceX>
 
-
     @Before
     fun setUp() {
         mActivity =  rule.activity
@@ -46,7 +46,6 @@ class MainActivityTest {
         source2 = SourceX("h","i","j","k","l","m","n")
         input = listOf(source1, source2)
     }
-
 
     @Test
     fun testMainActivityLaunch() {
@@ -58,6 +57,12 @@ class MainActivityTest {
     fun testRecyclerView() {
         var view = mActivity.findViewById<RecyclerView>(R.id.sourceRecyclerView)
         assertNotNull(view)
+    }
+
+    @Test
+    fun testSwipeRefresh() {
+        var refresher = mActivity.findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        assertNotNull(refresher)
     }
 
     @Test

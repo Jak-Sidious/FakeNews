@@ -95,7 +95,7 @@ class ArticleActivity : AppCompatActivity() {
         }
     }
 
-    private fun prepareArticlesView(articleList: List<Article>?) {
+    fun prepareArticlesView(articleList: List<Article>?) {
         aArticleAdapter = ArticleAdapter(articleList)
         if(this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             aRecyclerView!!.layoutManager = LinearLayoutManager(this)

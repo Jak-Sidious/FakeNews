@@ -25,6 +25,7 @@ class ArticleDisplayActivityTest {
 
     lateinit var i: Intent
     lateinit var aADisplay: ArticleDisplayActivity
+    lateinit var storyUrl : String
 
     @Before
     fun setup() {
@@ -32,12 +33,19 @@ class ArticleDisplayActivityTest {
         i.putExtra("ArticleUrl", "https://www.tickles.com")
         aADisplay = rule.launchActivity(i)
 
+
     }
 
     @Test
-    fun testWebView(){
+    fun testWebView() {
         var webView = aADisplay.findViewById<WebView>(R.id.article_viewer)
         assertNotNull(webView)
+    }
+
+    @Test
+    fun testStoryUrl() {
+        storyUrl = rule.activity.storyUrl.toString()
+        assertNotNull(storyUrl)
     }
 
     @After
