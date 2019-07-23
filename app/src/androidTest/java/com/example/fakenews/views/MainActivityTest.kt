@@ -18,6 +18,7 @@ import org.junit.runner.RunWith
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.filters.LargeTest
+import com.example.fakenews.data.models.Source
 import com.example.fakenews.utils.ClickListener
 import com.example.fakenews.utils.RecyclerTouchListener
 import org.junit.After
@@ -36,7 +37,9 @@ class MainActivityTest {
     lateinit var mActivity: MainActivity
     lateinit var source1: SourceX
     lateinit var source2: SourceX
+    lateinit var source: Source
     lateinit var input: List<SourceX>
+    lateinit var input1: MutableList<SourceX>
 
     @Before
     fun setUp() {
@@ -45,6 +48,44 @@ class MainActivityTest {
         source1 = SourceX("a","b","c", "d", "e", "f", "g")
         source2 = SourceX("h","i","j","k","l","m","n")
         input = listOf(source1, source2)
+        input1 = mutableListOf(source1, source2)
+        source = Source("ok",input1)
+    }
+
+    @Test
+    fun testSource() {
+        assertNotNull(source.status)
+        assertNotNull(source.copy("ok",input1))
+        assertNotNull(source.toString())
+        source.status = "blink"
+        assertEquals(source.status, "blink")
+    }
+
+    @Test
+    fun testSourceX() {
+        assertNotEquals(source1,source2)
+    }
+
+    @Test
+    fun testSourceGetters() {
+        assertNotNull(source1.id)
+        assertNotNull(source1.name)
+        assertNotNull(source1.description)
+        assertNotNull(source1.url)
+        assertNotNull(source1.category)
+        assertNotNull(source1.language)
+        assertNotNull(source2.country)
+        assertNotNull(source1.toString())
+        assertNotNull(source1.copy("bah","bah","black","sheep","have",
+            "you","any"))
+        source1.id = "blah"
+        assertEquals(source1.id, "blah")
+        source1.name = "blahhhh"
+        assertEquals(source1.name,"blahhhh")
+        source1.description = "fsahdfa"
+        assertEquals(source1.description,"fsahdfa")
+        source1.url = "maybe"
+        assertEquals(source1.url,"maybe")
     }
 
     @Test
@@ -66,37 +107,18 @@ class MainActivityTest {
     }
 
     @Test
+    fun testSwipeRefresher() {
+        var refresher = mActivity.findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        assertNotNull(refresher)
+        assertNotNull(refresher.setOnRefreshListener { mActivity.getAllSources() })
+
+    }
+
+    @Test
     fun testPrepareRecyclerView() {
         assertNotNull(mActivity.runOnUiThread {mActivity.prepareRecyclerView(input)  } )
     }
 
-    @Test
-    fun testRecyclerViewOnCLickLaunchesArticleActivity() {
-        mActivity.setVisible(true)
-        var recycler = mActivity.runOnUiThread { mActivity.prepareRecyclerView(input) }
-        assertNotNull(recycler)
-        var recycled = mActivity.findViewById<RecyclerView>(R.id.sourceRecyclerView)
-        recycled.measure(0,0)
-        recycled.layout(0,0, 100, 100)
-        var clicker = mActivity.runOnUiThread {   recycled.addOnItemTouchListener(
-            RecyclerTouchListener(mActivity.applicationContext, recycled, object: ClickListener{
-            override fun onClick(view: View, position: Int) {
-                val mainToast = Toast.makeText(mActivity.applicationContext, input[0].name,
-                    Toast.LENGTH_SHORT)
-                assertNotNull(mainToast)
-                mainToast.setGravity(Gravity.CENTER, 0 ,0)
-                mainToast.show()
-                assertNotNull(mainToast.show())
-                val i = Intent(mActivity.applicationContext, ArticleActivity::class.java)
-                i.putExtra("SourceId", input[0].id)
-                i.putExtra("SourceName", input[0].name)
-                assertNotNull(mActivity.startActivity(i))
-            }
-
-        }))}
-        assertNotNull(clicker)
-        recycled.findViewHolderForAdapterPosition(0)?.itemView?.performClick()?.let { assertTrue(it) }
-    }
 
     @After
     fun tearDown(){

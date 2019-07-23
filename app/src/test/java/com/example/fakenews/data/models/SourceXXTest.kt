@@ -14,7 +14,7 @@ class SourceXXTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var testSource: SourceXX
+    lateinit var testSource: SourceXX
 
     @Before
     fun setup() {

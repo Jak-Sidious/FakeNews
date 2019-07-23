@@ -17,6 +17,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.example.fakenews.R
 import com.example.fakenews.data.models.Article
+import com.example.fakenews.data.models.ArticlesPerSource
 import com.example.fakenews.data.models.SourceXX
 import com.example.fakenews.utils.ClickListener
 import com.example.fakenews.utils.RecyclerTouchListener
@@ -50,10 +51,11 @@ class ArticleActivityTest {
     lateinit var article2: Article
     lateinit var xx1: SourceXX
     lateinit var xx2: SourceXX
+    lateinit var aPs: ArticlesPerSource
     lateinit var input: List<Article>
+    lateinit var input2: MutableList<Article>
     lateinit var aVm: ArticleViewModel
     lateinit var qVm: QueriedViewModel
-
 
     @Before
     fun setup() {
@@ -69,11 +71,36 @@ class ArticleActivityTest {
         article1 = Article(xx1, "a", "b", "c", "d", "e", "f", "g")
         article2 = Article(xx2, "h", "i", "j", "k", "l", "m", "n")
         input = listOf(article1, article2)
+        input2 = mutableListOf(article1,article2)
+        aPs = ArticlesPerSource("OK", 5000, input2)
         sent = mArticle.sent
         aVm = mArticle.articleViewModel!!
         qVm = mArticle.queryViewModel!!
     }
 
+    @Test
+    fun testArticlesPerSource() {
+        assertNotNull(aPs.status)
+        assertNotNull(aPs.totalResults)
+        assertEquals(aPs.totalResults, 5000)
+        assertNotNull(aPs.copy("no", 20, input2))
+        assertEquals(aPs,ArticlesPerSource("OK", 5000, input2))
+        assertNotNull(aPs.toString())
+    }
+
+    @Test
+    fun testSourceXXgetters() {
+        assertNotNull(xx1.id)
+        assertNotNull(xx1.name)
+        assertNotNull(xx1.copy("blah","blah blah"))
+        assertNotEquals(article1,article2)
+        assertNotNull(article1.toString())
+        assertNotNull(article1.content)
+        assertNotNull(article2.url)
+        assertNotNull(article1.copy(xx2,"me", "me","me","you","you",
+            "me","sagjdjsafdjsfadjsa"))
+        assertEquals(article1, article1)
+    }
 
     @Test
     fun testArticleActivityLaunch() {
@@ -85,6 +112,12 @@ class ArticleActivityTest {
     fun testBundle(){
         assertNotNull(sent)
     }
+
+    @Test
+    fun testArticleGetters(){
+
+    }
+
 
     @Test
     fun testViewModels(){
@@ -129,17 +162,6 @@ class ArticleActivityTest {
         assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
     }
 
-    @Test
-    fun testgetAllArticles2(){
-        mArticle.finish()
-        var ext = Intent()
-        ext.putExtra("SourceId", "id")
-        ext.putExtra("SourceId", "id")
-        mArticle = rule.launchActivity(ext)
-        var header = mArticle.viewHeader
-        assertNull(header)
-        assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
-    }
 
     @Test
     fun testRecyclerViewOnClickLaunchesWebView() {
@@ -167,6 +189,18 @@ class ArticleActivityTest {
         )}
         assertNotNull(clicker)
         recycled.findViewHolderForAdapterPosition(0)?.itemView?.performClick()?.let { assertTrue(it) }
+    }
+
+    @Test
+    fun testgetAllArticles2(){
+        mArticle.finish()
+        var ext = Intent()
+        ext.putExtra("SourceId", "id")
+        ext.putExtra("SourceId", "id")
+        mArticle = rule.launchActivity(ext)
+        var header = mArticle.viewHeader
+        assertNull(header)
+        assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
     }
 
     @After
