@@ -1,10 +1,6 @@
 package com.example.fakenews.views
 
-import android.content.Intent
-import android.view.Gravity
-import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
@@ -19,8 +15,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.filters.LargeTest
 import com.example.fakenews.data.models.Source
-import com.example.fakenews.utils.ClickListener
-import com.example.fakenews.utils.RecyclerTouchListener
 import org.junit.After
 
 
@@ -57,6 +51,7 @@ class MainActivityTest {
         assertNotNull(source.status)
         assertNotNull(source.copy("ok",input1))
         assertNotNull(source.toString())
+        assertNotNull(source.sources)
         source.status = "blink"
         assertEquals(source.status, "blink")
     }
@@ -86,6 +81,12 @@ class MainActivityTest {
         assertEquals(source1.description,"fsahdfa")
         source1.url = "maybe"
         assertEquals(source1.url,"maybe")
+        source1.category = "category"
+        assertEquals(source1.category,"category")
+        source1.language = "language"
+        assertEquals(source1.language, "language")
+        source1.country = "country"
+        assertEquals(source1.country, "country")
     }
 
     @Test
@@ -110,15 +111,13 @@ class MainActivityTest {
     fun testSwipeRefresher() {
         var refresher = mActivity.findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
         assertNotNull(refresher)
-        assertNotNull(refresher.setOnRefreshListener { mActivity.getAllSources() })
-
+        assertNotNull(refresher.run { setOnRefreshListener { mActivity.getAllSources() }  })
     }
 
     @Test
     fun testPrepareRecyclerView() {
         assertNotNull(mActivity.runOnUiThread {mActivity.prepareRecyclerView(input)  } )
     }
-
 
     @After
     fun tearDown(){

@@ -30,7 +30,7 @@ class SourceAdapter(val sourceList: List<SourceX>?) : RecyclerView.Adapter<Sourc
         )
     }
 
-    private fun getImage(imageName: String): Int? {
+    fun getImage(imageName: String): Int? {
         return sContext?.resources?.getIdentifier(imageName, "drawable", sContext!!.packageName)
     }
 

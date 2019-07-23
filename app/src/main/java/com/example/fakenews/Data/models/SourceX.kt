@@ -23,13 +23,13 @@ data class SourceX(
 
     @Expose
     @SerializedName("category")
-    val category: String,
+    var category: String,
 
     @Expose
     @SerializedName("language")
-    val language: String,
+    var language: String,
 
     @Expose
     @SerializedName("country")
-    val country: String
+    var country: String
 )

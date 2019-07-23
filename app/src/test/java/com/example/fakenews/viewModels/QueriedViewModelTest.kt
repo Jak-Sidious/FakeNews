@@ -3,7 +3,6 @@ package com.example.fakenews.viewModels
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.fakenews.data.dataRepository.ArticlesPerSourceRepository
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -43,7 +42,6 @@ class QueriedViewModelTest {
                 "en", "publishedAt"
             )
             assertThat(response).isNotNull()
-
     }
 }
 

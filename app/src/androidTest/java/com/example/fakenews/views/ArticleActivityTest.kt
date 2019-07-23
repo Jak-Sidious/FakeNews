@@ -2,14 +2,12 @@ package com.example.fakenews.views
 
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -23,14 +21,12 @@ import com.example.fakenews.utils.ClickListener
 import com.example.fakenews.utils.RecyclerTouchListener
 import com.example.fakenews.viewModels.ArticleViewModel
 import com.example.fakenews.viewModels.QueriedViewModel
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
 
 
 @LargeTest
@@ -56,6 +52,7 @@ class ArticleActivityTest {
     lateinit var input2: MutableList<Article>
     lateinit var aVm: ArticleViewModel
     lateinit var qVm: QueriedViewModel
+    lateinit var aSwipeRefreshLayout: SwipeRefreshLayout
 
     @Before
     fun setup() {
@@ -66,6 +63,7 @@ class ArticleActivityTest {
         mArticle = rule.launchActivity(i)
         sent = mArticle.sent
         mArticle.aRecyclerView
+        aSwipeRefreshLayout = mArticle.aSwipeRefresh!!
         xx1 = SourceXX("test1", "test1")
         xx2 = SourceXX("test2", "test2")
         article1 = Article(xx1, "a", "b", "c", "d", "e", "f", "g")
@@ -86,6 +84,7 @@ class ArticleActivityTest {
         assertNotNull(aPs.copy("no", 20, input2))
         assertEquals(aPs,ArticlesPerSource("OK", 5000, input2))
         assertNotNull(aPs.toString())
+        assertNotNull(aPs.articles)
     }
 
     @Test
@@ -93,6 +92,7 @@ class ArticleActivityTest {
         assertNotNull(xx1.id)
         assertNotNull(xx1.name)
         assertNotNull(xx1.copy("blah","blah blah"))
+        assertNotEquals(xx1, xx2)
         assertNotEquals(article1,article2)
         assertNotNull(article1.toString())
         assertNotNull(article1.content)
@@ -114,12 +114,6 @@ class ArticleActivityTest {
     }
 
     @Test
-    fun testArticleGetters(){
-
-    }
-
-
-    @Test
     fun testViewModels(){
         assertEquals(aVm, mArticle.articleViewModel)
         assertEquals(qVm, mArticle.queryViewModel)
@@ -139,6 +133,8 @@ class ArticleActivityTest {
     fun testSwipeRefresh() {
         var refresher = mArticle.findViewById<SwipeRefreshLayout>(R.id.swipeRefresher)
         assertNotNull(refresher)
+        assertNotNull(aSwipeRefreshLayout)
+        assertNotNull(aSwipeRefreshLayout.setOnRefreshListener { mArticle.getAllArticles() })
     }
 
     @Test
@@ -196,10 +192,11 @@ class ArticleActivityTest {
         mArticle.finish()
         var ext = Intent()
         ext.putExtra("SourceId", "id")
-        ext.putExtra("SourceId", "id")
+        ext.putExtra("SourceName", "name")
         mArticle = rule.launchActivity(ext)
         var header = mArticle.viewHeader
-        assertNull(header)
+        assertNotNull(header)
+        assertNotNull(input)
         assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
     }
 

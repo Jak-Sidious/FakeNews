@@ -15,7 +15,6 @@ class ArticleViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
-
     private lateinit var articleViewModel: ArticleViewModel
     private lateinit var articleRepository: ArticlesPerSourceRepository
 
