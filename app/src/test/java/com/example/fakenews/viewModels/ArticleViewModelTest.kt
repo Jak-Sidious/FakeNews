@@ -35,6 +35,16 @@ class ArticleViewModelTest {
     }
 
     @Test
+    fun getViewModelSource() {
+        assertThat(articleViewModel.sourceString).isEqualTo("source")
+    }
+
+    @Test
+    fun getArticleRepositoryfromViewModel() {
+        assertThat(articleViewModel.articleRepository).isNotNull()
+    }
+
+    @Test
     fun getAllArticlesSuccesfully() {
         runBlocking {
             articleViewModel.allArticles.observeForever {  }

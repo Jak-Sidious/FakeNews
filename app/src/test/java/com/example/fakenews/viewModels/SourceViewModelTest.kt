@@ -39,6 +39,12 @@ class SourceViewModelTest {
     }
 
     @Test
+    fun getSourceRepoFromViewModel(){
+        assertThat(sourceViewModel.sourceRepository).isNotNull()
+    }
+
+
+    @Test
     fun getArticlesSuccesfully(){
         runBlocking {
             sourceViewModel.allSources.observeForever {

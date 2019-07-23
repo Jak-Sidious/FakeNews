@@ -26,9 +26,6 @@ import com.example.fakenews.viewModels.SourceViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
-
-
-
 @Suppress("DEPRECATION", "UNUSED_PARAMETER")
 class MainActivity : AppCompatActivity() {
 

@@ -1,5 +1,6 @@
 package com.example.fakenews.views
 
+import android.content.res.Configuration
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -14,8 +15,10 @@ import org.junit.runner.RunWith
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.filters.LargeTest
+import com.example.fakenews.adapters.SourceAdapter
 import com.example.fakenews.data.models.Source
 import org.junit.After
+import org.robolectric.annotation.Config
 
 
 @LargeTest
@@ -29,6 +32,7 @@ class MainActivityTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     lateinit var mActivity: MainActivity
+    lateinit var mSourceAdapter: SourceAdapter
     lateinit var source1: SourceX
     lateinit var source2: SourceX
     lateinit var source: Source
@@ -44,6 +48,7 @@ class MainActivityTest {
         input = listOf(source1, source2)
         input1 = mutableListOf(source1, source2)
         source = Source("ok",input1)
+        mActivity.mSourceAdapter
     }
 
     @Test
@@ -54,6 +59,13 @@ class MainActivityTest {
         assertNotNull(source.sources)
         source.status = "blink"
         assertEquals(source.status, "blink")
+        assertEquals(input1.size, 2)
+    }
+
+    @Test
+    fun testAdapterGetString(){
+        mActivity.mSourceAdapter = SourceAdapter(input)
+        assertNotNull(mActivity.mSourceAdapter)
     }
 
     @Test
@@ -117,6 +129,14 @@ class MainActivityTest {
     @Test
     fun testPrepareRecyclerView() {
         assertNotNull(mActivity.runOnUiThread {mActivity.prepareRecyclerView(input)  } )
+        assert(mActivity.resources.configuration.equals(Configuration.ORIENTATION_PORTRAIT))
+    }
+
+
+    @Test @Config(qualifiers = "land")
+    fun testPrepareRecyclerViewLandScape() {
+        assertNotNull(mActivity.runOnUiThread {mActivity.prepareRecyclerView(input)  } )
+        assert(mActivity.resources.configuration.equals(Configuration.ORIENTATION_LANDSCAPE))
     }
 
     @After

@@ -2,6 +2,7 @@ package com.example.fakenews.views
 
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.example.fakenews.R
+import com.example.fakenews.adapters.ArticleAdapter
 import com.example.fakenews.data.models.Article
 import com.example.fakenews.data.models.ArticlesPerSource
 import com.example.fakenews.data.models.SourceXX
@@ -27,6 +29,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 
 @LargeTest
@@ -85,6 +88,13 @@ class ArticleActivityTest {
         assertEquals(aPs,ArticlesPerSource("OK", 5000, input2))
         assertNotNull(aPs.toString())
         assertNotNull(aPs.articles)
+        assertEquals(input.size, 2)
+    }
+
+    @Test
+    fun testAdapterGetString(){
+        mArticle.aArticleAdapter = ArticleAdapter(input)
+        assertNotNull(mArticle.aArticleAdapter.toString())
     }
 
     @Test
@@ -156,6 +166,13 @@ class ArticleActivityTest {
     @Test
     fun testPrepareArticleList() {
         assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
+    }
+
+    @Test @Config(qualifiers = "land")
+    fun testPrepareArticleListLandscape(){
+        assertNotNull(mArticle.runOnUiThread { mArticle.prepareArticlesView(input) })
+//        assert(mArticle..resources.configuration.equals(Configuration.ORIENTATION_PORTRAIT))
+        assert(mArticle.aRecyclerView!!.resources.configuration.equals(Configuration.ORIENTATION_LANDSCAPE))
     }
 
 

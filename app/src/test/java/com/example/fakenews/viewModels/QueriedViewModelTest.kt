@@ -43,5 +43,13 @@ class QueriedViewModelTest {
             )
             assertThat(response).isNotNull()
     }
+
+    @Test
+    fun getAllFromViewModel() {
+        assertThat(queryViewModel.sortBy).isEqualTo("published")
+        assertThat(queryViewModel.language).isEqualTo("en")
+        assertThat(queryViewModel.keyword).isEqualTo("query")
+        assertThat(queryViewModel.queryRepository).isNotNull()
+    }
 }
 
