@@ -11,6 +11,9 @@ import android.widget.Toast
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -111,6 +114,8 @@ class ArticleActivityTest {
             "me","sagjdjsafdjsfadjsa"))
         assertEquals(article1, article1)
     }
+
+
 
     @Test
     fun testArticleActivityLaunch() {

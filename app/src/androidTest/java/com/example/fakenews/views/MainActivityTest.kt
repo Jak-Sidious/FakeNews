@@ -2,22 +2,31 @@ package com.example.fakenews.views
 
 import android.content.res.Configuration
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
-import org.junit.Assert.*
-import org.junit.Rule
-import org.junit.Test
-import com.example.fakenews.R
-import com.example.fakenews.data.models.SourceX
-import org.junit.Before
-import org.junit.runner.RunWith
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.swipeDown
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.rule.ActivityTestRule
+import com.example.fakenews.R
 import com.example.fakenews.adapters.SourceAdapter
 import com.example.fakenews.data.models.Source
+import com.example.fakenews.data.models.SourceX
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 
@@ -63,6 +72,16 @@ class MainActivityTest {
     }
 
     @Test
+    fun searchMenuClick() {
+        onView(withId(com.example.fakenews.R.id.search)).perform(click())
+    }
+
+    @Test
+    fun performRefresh(){
+        onView(withId(R.id.swipeRefresh)).perform(swipeDown())
+    }
+
+    @Test
     fun testAdapterGetString(){
         mActivity.mSourceAdapter = SourceAdapter(input)
         assertNotNull(mActivity.mSourceAdapter)
@@ -105,6 +124,11 @@ class MainActivityTest {
     fun testMainActivityLaunch() {
         var view = mActivity.findViewById<TextView>(R.id.PageHeader)
         assertNotNull(view)
+    }
+
+    @Test
+    fun testAppBarText(){
+        onView(withId(R.id.action_bar)).check(matches(hasDescendant(withText("Fake News"))))
     }
 
     @Test
