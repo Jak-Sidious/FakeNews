@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -26,8 +30,12 @@ import com.example.fakenews.utils.ClickListener
 import com.example.fakenews.utils.RecyclerTouchListener
 import com.example.fakenews.viewModels.ArticleViewModel
 import com.example.fakenews.viewModels.QueriedViewModel
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -98,6 +106,17 @@ class ArticleActivityTest {
     fun testAdapterGetString(){
         mArticle.aArticleAdapter = ArticleAdapter(input)
         assertNotNull(mArticle.aArticleAdapter.toString())
+    }
+
+    @Test
+    fun testRecyclerViewClicks() {
+        var view = mArticle.runOnUiThread { mArticle.prepareArticlesView(input) }
+        Thread.sleep(2000)
+        onView((withId(R.id.articleRecyclerView)))
+            .perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(1, click()))
+        onView(withId(R.id.article_viewer))
+            .check(matches(isDisplayed()))
+        assertNotNull(view)
     }
 
     @Test

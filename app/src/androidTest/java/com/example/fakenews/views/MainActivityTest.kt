@@ -1,20 +1,20 @@
 package com.example.fakenews.views
 
 import android.content.res.Configuration
+import android.view.KeyEvent
 import android.widget.TextView
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.pressKey
 import androidx.test.espresso.action.ViewActions.swipeDown
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.contrib.RecyclerViewActions.scrollTo
-import androidx.test.espresso.contrib.RecyclerViewActions.scrollToHolder
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -128,7 +128,7 @@ class MainActivityTest {
 
     @Test
     fun testMainActivityLaunch() {
-        var view = mActivity.findViewById<TextView>(com.example.fakenews.R.id.PageHeader)
+        var view = mActivity.findViewById<TextView>(R.id.PageHeader)
         assertNotNull(view)
     }
 
@@ -152,10 +152,12 @@ class MainActivityTest {
     @Test
     fun testRecyclerViewScroll(){
         var view = mActivity.findViewById<RecyclerView>(R.id.sourceRecyclerView)
-        Thread.sleep(5000)
+        Thread.sleep(3000)
         onView(allOf(withId(R.id.sourceRecyclerView)))
             .perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(2, click()))
-//        assertNotNull(view)
+        onView(withId(R.id.articleRecyclerView))
+            .check(matches(isDisplayed()))
+        assertNotNull(view)
     }
 
 
