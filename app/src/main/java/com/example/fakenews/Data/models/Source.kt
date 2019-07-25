@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class Source(
     @Expose
     @SerializedName("status")
-    val status: String,
+    var status: String,
 
     @Expose
     @SerializedName("sources")

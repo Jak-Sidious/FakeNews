@@ -5,7 +5,7 @@ jacoco {
     reportsDir = file("$buildDir/reports")
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+task jacocoTestReport(type: JacocoReport, dependsOn: ["clean", "testDebugUnitTest"]) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports for Debug build"
 
@@ -24,7 +24,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             '**/Manifest*.*',
             '**/*Test*.*',
             'android/**/*.*',
-            '**/*Fragment.*'
+            '**/*Fragment.*',
+            '**/utils/*'
     ]
     // generated classes
     classDirectories = fileTree(
@@ -40,5 +41,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             android.sourceSets.main.java.srcDirs,
             "src/main/kotlin"
     ])
-    executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/*coverage.ec'
+    ])
 }

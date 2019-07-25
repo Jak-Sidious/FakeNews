@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.fakenews.data.dataRepository.ArticlesPerSourceRepository
 import com.example.fakenews.data.models.Article
 
-@Suppress("EmptyDefaultConstructor")
+
 class ArticleViewModel(val sourceString: String?) : ViewModel(){
     val articleRepository = ArticlesPerSourceRepository()
     val allArticles: LiveData<List<Article>> get() = articleRepository.getMutableArticleData(source =sourceString)

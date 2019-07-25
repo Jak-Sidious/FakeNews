@@ -7,30 +7,29 @@ data class SourceX(
 
     @Expose
     @SerializedName("id")
-    val id: String,
+    var id: String,
 
     @Expose
     @SerializedName("name")
-    val name: String,
+    var name: String,
 
     @Expose
     @SerializedName("description")
-    val description: String,
+    var description: String,
 
     @Expose
     @SerializedName("url")
-    val url: String,
+    var url: String,
 
     @Expose
     @SerializedName("category")
-    val category: String,
+    var category: String,
 
     @Expose
     @SerializedName("language")
-    val language: String,
+    var language: String,
 
     @Expose
     @SerializedName("country")
-    val country: String
-
+    var country: String
 )
