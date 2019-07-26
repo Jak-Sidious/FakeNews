@@ -53,6 +53,12 @@ class MainActivity : AppCompatActivity() {
             android.R.color.holo_red_light)
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+//        getAllSources()
+    }
+
     fun getAllSources(){
         mSwipeRefresh!!.isRefreshing = false
         sourceViewModel!!.allSources.observe(this, Observer { sourceList ->

@@ -20,6 +20,14 @@ tasks.withType(Test) {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/jakanakiwanuka/Documents/keystore/Untitled')
+            storePassword 'Tickle'
+            keyAlias = kotlin_version
+            keyPassword 'Tickle'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.fakenews"

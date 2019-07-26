@@ -39,16 +39,28 @@ class ArticleActivity : AppCompatActivity() {
     var viewHeader: String? = null
     var sourced: String? = null
     var queryString: String? = null
+    var articleState: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.article_activity)
-        sent = intent.extras
-        viewHeader = sent.getString("SourceName")
-        sourced = sent.getString("SourceId")
-        queryString = sent.getString("SearchQuery")
+
+        if (savedInstanceState != null){
+            with(savedInstanceState){
+                articleState = getString(ARTICLE_STATE_KEY)
+                viewHeader = getString(VH_VIEW_KEY)
+                sourced = getString(SOURCED_VIEW_KEY)
+                queryString = getString(QUERY_VIEW_KEY)
+            }
+        } else {
+            sent = intent.extras
+            viewHeader = sent.getString("SourceName")
+            sourced = sent.getString("SourceId")
+            queryString = sent.getString("SearchQuery")
+        }
+
+        articleState = savedInstanceState?.getString(ARTICLE_STATE_KEY)
         aSwipeRefresh = swipeRefresher
-        Timber.d("Source Name $viewHeader, source id $sourced query string $queryString")
         aRecyclerView = articleRecyclerView
         createArticleView()
         articleViewModel = ViewModelProviders.of(
@@ -64,6 +76,39 @@ class ArticleActivity : AppCompatActivity() {
             android.R.color.holo_orange_light,
             android.R.color.holo_red_light)
         setHeaderText()
+        onBackPressed()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        viewHeader = savedInstanceState?.getString(VH_VIEW_KEY)
+        sourced = savedInstanceState?.getString(SOURCED_VIEW_KEY)
+        queryString = savedInstanceState?.getString(QUERY_VIEW_KEY)
+
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState?.run {
+            putString(ARTICLE_STATE_KEY, articleState)
+            putString(VH_VIEW_KEY, viewHeader)
+            putString(SOURCED_VIEW_KEY, sourced)
+            putString(QUERY_VIEW_KEY, queryString)
+        }
+
+        super.onSaveInstanceState(outState)
+    }
+
+    companion object {
+        val ARTICLE_STATE_KEY = "ArticleState"
+        val VH_VIEW_KEY = "ViewHeader"
+        val SOURCED_VIEW_KEY = "SourcedString"
+        val QUERY_VIEW_KEY = "QueryString"
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     fun createArticleView(): String? {
