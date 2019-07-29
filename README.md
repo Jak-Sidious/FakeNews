@@ -25,7 +25,7 @@ Additionally, the command ```./gradlew installGitHooks``` can be run from inside
 > ./gradlew connectedCheck
 
 This command runs both Insturmentation and Unit Tests that are collectively reported by jacoco
-![Alt text](/relative/drawable/Coverage.png?raw=true Coverage)
+![Application Coverage](https://github.com/Jak-Sidious/FakeNews/blob/ch-167417002-Modify-ReadMe/app/src/main/res/drawable/Coverage.png)
 
 
 ## Build variants
