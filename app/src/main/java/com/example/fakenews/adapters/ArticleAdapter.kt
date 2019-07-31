@@ -29,7 +29,6 @@ class ArticleAdapter(val articleList: List<Article>?) : RecyclerView.Adapter<Art
         holder.mArticleAuthor.text = mArticle.author
         holder.mArticleTimestamp.text = mArticle.publishedAt
         holder.mArticleDescription.text = mArticle.description
-        holder.mArticleSource.text = mArticle.source.name
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -38,6 +37,5 @@ class ArticleAdapter(val articleList: List<Article>?) : RecyclerView.Adapter<Art
         val mArticleAuthor: TextView = itemView.findViewById(R.id.article_author)
         val mArticleTimestamp: TextView = itemView.findViewById(R.id.article_timestamp)
         val mArticleDescription: TextView = itemView.findViewById(R.id.article_description)
-        val mArticleSource: TextView = itemView.findViewById(R.id.article_source)
     }
 }
