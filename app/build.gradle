@@ -14,7 +14,9 @@ apply from: '../app/code_quality_tools/quality.gradle'
 apply from: '../coverage.gradle'
 
 apply plugin: 'com.android.application'
+
 apply plugin: 'io.fabric'
+
 apply plugin: 'com.google.firebase.firebase-perf'
 
 
