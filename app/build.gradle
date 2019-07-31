@@ -13,6 +13,8 @@ apply from: '../app/code_quality_tools/quality.gradle'
 
 apply from: '../coverage.gradle'
 
+apply plugin: 'com.android.application'
+
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
@@ -20,15 +22,24 @@ tasks.withType(Test) {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/jakanakiwanuka/Documents/keystore/trial')
+            storePassword 'Ticklez'
+            keyAlias = 'key0'
+            keyPassword 'Ticklez'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.fakenews"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "apiKey", apiKey)
+        signingConfig signingConfigs.release
     }
     buildTypes {
 
@@ -60,11 +71,17 @@ android {
         abortOnError false
         ignore 'GoogleAppIndexingWarning'
     }
+    flavorDimensions 'defaultConfig'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //FireBase
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-common-ktx:18.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:20.2.0'
 
     //Android X components
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -137,3 +154,5 @@ dependencies {
 }
 
 apply from: '../gradle/git-hooks.gradle'
+
+apply plugin: 'com.google.gms.google-services'
