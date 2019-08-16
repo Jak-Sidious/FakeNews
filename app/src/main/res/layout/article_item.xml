@@ -57,15 +57,6 @@
             android:textColor="#d3d3d3"
             card_view:layout_constraintTop_toBottomOf="@id/article_author"/>
 
-        <TextView
-            android:id="@+id/article_source"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/article_source"
-            android:textColor="#d3d3d3"
-            card_view:layout_constraintTop_toBottomOf="@id/article_description"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

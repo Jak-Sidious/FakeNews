@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "44338786926",
+    "firebase_url": "https://fake-news-74bb9.firebaseio.com",
+    "project_id": "fake-news-74bb9",
+    "storage_bucket": "fake-news-74bb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44338786926:android:bc49b9c02a0cc799",
+        "android_client_info": {
+          "package_name": "com.example.fakenews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44338786926-1228iq8cdghofsm5nnig5ip1jef7gu9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBZTc1tGoYsJtGyYH_O0yqJ4RULc7rRKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44338786926-1228iq8cdghofsm5nnig5ip1jef7gu9t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
