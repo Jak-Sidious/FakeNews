@@ -12,7 +12,7 @@ import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mSwipeRefresh = swipeRefresh
         mRecyclerView = sourceRecyclerView
-        sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel::class.java)
+        sourceViewModel = ViewModelProvider(this).get(SourceViewModel::class.java)
         getAllSources()
         mSwipeRefresh?.setOnRefreshListener {
             getAllSources()
@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                     val mainToast = Toast.makeText(this@MainActivity,
                         sourceList!![position].name, Toast.LENGTH_SHORT)
                     mainToast.setGravity(Gravity.CENTER, 0 ,0)
-                    mainToast.show()
                     val i = Intent(this@MainActivity, ArticleActivity::class.java)
                     i.putExtra("SourceId", sourceList[position].id)
                     i.putExtra("SourceName", sourceList[position].name)

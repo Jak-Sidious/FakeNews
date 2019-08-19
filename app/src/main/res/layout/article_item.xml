@@ -36,8 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/the_author"
+            android:textStyle="bold"
             android:textColor="#d3d3d3"
-            card_view:layout_constraintTop_toBottomOf="@id/article_title"
+            card_view:layout_constraintTop_toBottomOf="@id/article_description"
             card_view:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -45,9 +46,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/timestamp"
+            android:textStyle="bold"
             android:gravity="end"
             android:textColor="#d3d3d3"
-            card_view:layout_constraintTop_toBottomOf="@id/article_title"/>
+            card_view:layout_constraintTop_toBottomOf="@id/article_description"/>
 
         <TextView
             android:id="@+id/article_description"
@@ -55,7 +57,9 @@
             android:layout_height="wrap_content"
             android:text="@string/the_description"
             android:textColor="#d3d3d3"
-            card_view:layout_constraintTop_toBottomOf="@id/article_author"/>
+            android:ellipsize="end"
+            android:maxLines="3"
+            card_view:layout_constraintTop_toBottomOf="@id/article_title"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

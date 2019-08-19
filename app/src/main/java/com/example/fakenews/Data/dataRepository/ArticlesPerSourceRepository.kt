@@ -28,7 +28,7 @@ class ArticlesPerSourceRepository() {
 
     fun getMutableArticleData(source: String?): MutableLiveData<List<Article>> {
         CoroutineScope(Dispatchers.IO).launch {
-            val request = getArticles.getArticlesPerSource(source, BuildConfig.apiKey)
+            val request = getArticles.getArticlesPerSource(source,"en",BuildConfig.apiKey)
             withContext(Dispatchers.Default) {
                 try {
                     val response = request.await()

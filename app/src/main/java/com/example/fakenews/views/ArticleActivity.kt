@@ -107,7 +107,6 @@ class ArticleActivity : AppCompatActivity() {
                         val articleToast = Toast.makeText(this@ArticleActivity,
                             articleList!![position].url, Toast.LENGTH_SHORT)
                         articleToast.setGravity(Gravity.CENTER, 0 ,0)
-                        articleToast.show()
                         val webs = Intent(this@ArticleActivity, ArticleDisplayActivity::class.java)
                         webs.putExtra("ArticleUrl", articleList[position].url)
                         startActivity(webs)
