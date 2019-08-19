@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,10 +48,11 @@ class ArticleActivity : AppCompatActivity() {
         Timber.d("Source Name $viewHeader, source id $sourced query string $queryString")
         aRecyclerView = articleRecyclerView
         createArticleView()
-        articleViewModel = ViewModelProviders.of(
+        articleViewModel = ViewModelProvider(
             this, ArticleViewModelFactory(sourced)).get(ArticleViewModel::class.java)
-        queryViewModel = ViewModelProviders.of(
-            this, QueriedViewModelFactory(queryString,"en","publishedAt")).get(QueriedViewModel::class.java)
+        queryViewModel = ViewModelProvider(
+            this, QueriedViewModelFactory(queryString,"en","publishedAt"))
+            .get(QueriedViewModel::class.java)
         getAllArticles()
         aSwipeRefresh?.setOnRefreshListener {
             getAllArticles()
@@ -104,11 +105,8 @@ class ArticleActivity : AppCompatActivity() {
         aRecyclerView!!.addOnItemTouchListener(
             RecyclerTouchListener(this, aRecyclerView!!, object : ClickListener {
                     override fun onClick(view: View, position: Int) {
-                        val articleToast = Toast.makeText(this@ArticleActivity,
-                            articleList!![position].url, Toast.LENGTH_SHORT)
-                        articleToast.setGravity(Gravity.CENTER, 0 ,0)
                         val webs = Intent(this@ArticleActivity, ArticleDisplayActivity::class.java)
-                        webs.putExtra("ArticleUrl", articleList[position].url)
+                        webs.putExtra("ArticleUrl", articleList!![position].url)
                         startActivity(webs)
                     }
                 })

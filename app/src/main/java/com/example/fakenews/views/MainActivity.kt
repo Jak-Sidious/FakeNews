@@ -72,11 +72,8 @@ class MainActivity : AppCompatActivity() {
         mRecyclerView!!.addOnItemTouchListener(
             RecyclerTouchListener(this, mRecyclerView!!, object : ClickListener {
                 override fun onClick(view: View, position: Int) {
-                    val mainToast = Toast.makeText(this@MainActivity,
-                        sourceList!![position].name, Toast.LENGTH_SHORT)
-                    mainToast.setGravity(Gravity.CENTER, 0 ,0)
                     val i = Intent(this@MainActivity, ArticleActivity::class.java)
-                    i.putExtra("SourceId", sourceList[position].id)
+                    i.putExtra("SourceId", sourceList!![position].id)
                     i.putExtra("SourceName", sourceList[position].name)
                     startActivity(i)
                 }
