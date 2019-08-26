@@ -25,13 +25,19 @@ tasks.withType(Test) {
     jacoco.excludes = ['jdk.internal.*']
 }
 
+def keystorePropetiesFile = rootProject.file("keystore.properties")
+
+def keystoreProperties = new Properties()
+
+keystoreProperties.load(new FileInputStream(keystorePropetiesFile))
+
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/jakanakiwanuka/Documents/keystore/trial')
-            storePassword 'Ticklez'
-            keyAlias = 'key0'
-            keyPassword 'Ticklez'
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
     compileSdkVersion 28
